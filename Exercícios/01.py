@@ -35,19 +35,19 @@ True para bebidas alcóolicas e False para bebidas não alcóolicas. Para inseri
 Dica: Lembre-se do comando in para strings e sempre insira os códigos com letra maiúscula para facilitar.
 
 """
-qtdVendas_Coca = 1500
-qtdVendas_Pepsi = 200
-preco_Coca = 1.5
-preco_Pepsi = 1.5
-CustoLoja = 2500
+qtd_vendas_coca = 1500
+qtd_vendas_pepsi = 200
+preco_coca = 1.5
+preco_pepsi = 1.5
+Custo_loja = 2500
 
-fatPepsi = qtdVendas_Pepsi * preco_Pepsi
-fatCoca = qtdVendas_Coca * preco_Coca
-faturamento = fatCoca + fatPepsi 
-lucro = faturamento - CustoLoja
+faturamento_pepsi = qtd_vendas_pepsi * preco_pepsi
+faturamento_coca = qtd_vendas_coca * preco_coca
+faturamento = faturamento_coca + faturamento_pepsi 
+lucro = faturamento - faturamento_coca
 margem = lucro/faturamento
-print(f"Faturamento Pepsi: {fatPepsi:,.2f}")
-print(f"Faturamento Coca: {fatCoca:,.2f}")
+print(f"Faturamento Pepsi: {faturamento_pepsi:,.2f}")
+print(f"Faturamento Coca: {faturamento_coca:,.2f}")
 print(f"Lucro: {lucro:,.2f}")
 print(f"Margem: {margem:,.2%}")
 
