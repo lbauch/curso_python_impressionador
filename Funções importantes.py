@@ -150,3 +150,32 @@ var1 = var1 + 5
 print(var1)
 var1 += 6
 print(var1)
+
+# As duas variáveis apontam para o mesmo endereço de memória.
+lista1 = ['item1', 'item2', 'item3']
+lista2 = lista1
+lista2.pop()
+print(lista1)
+lista1 = ['item1', 'item2', 'item3']
+# Necessário o comando copy para criar uma nova variável. Os dois pontos indicam que quero copiar todos os valores de até, quando estiver vazio, mínimo e máximo índica.
+lista2 = lista1.copy()
+print(lista2)
+lista2 = lista1[:]
+print(lista2)
+lista2 = lista1[1:]
+print(lista2)
+lista2 = lista1[:2]
+print(lista2)
+lista2 = lista1[1:3]
+
+# Listas de listas - matrizes
+vendedores = ['Lira', 'João', 'Diego', 'Alon']
+produtos = ['ipad', 'iphone']
+vendas = [
+    [100, 200],
+    [300, 500],
+    [50, 1000],
+    [900, 10],
+]
+vendas_ipad_joao = vendas[1][0]
+print(vendas_ipad_joao)

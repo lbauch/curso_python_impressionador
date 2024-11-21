@@ -13,6 +13,30 @@ vendas_2sem = [19850, 20120, 17540, 15555, 49051, 9650]
 
 # RESPOSTA:
 
+vendas_total = []
+valor_vendas = 0
+for i in range(5):
+    valor = vendas_1sem[i] + vendas_2sem[i]
+    valor_vendas += valor
+    vendas_total.append(valor)
+"""
+    if i == 0:
+        maior = valor
+        indice_maior = i
+        menor = valor
+        indice_menor = i
+    else:
+        if valor > maior:
+            maior = valor
+            indice_maior = i
+        elif valor < menor:
+            menor = valor
+            indice_menor = i
+"""
+
+
+print(f'')   
+
 """
 2. Continuação
 
@@ -141,3 +165,53 @@ if vendas_vendedor1 > vendas_vendedor2:
    print("Vendedor 1 vendeu mais")
 else:
    print("Vendedor 2 vendeu mais")
+
+"""
+Exercício 5
+
+vendedores = ['Lira', 'João', 'Diego', 'Alon']
+produtos = ['ipad', 'iphone']
+vendas = [
+    [100, 200],
+    [300, 500],
+    [50, 1000],
+    [900, 10],
+]
+a Quanto João vendeu de IPad?
+b Quanto Diego vendeu de IPhone
+c Qual o total de vendas de IPhone?
+d E se Lira na verdade fez apenas 50 vendas de IPhone, como eu modifico na minha lista o valor de vendas dele?
+e E se agora eu tenho um novo produto 'mac', como eu adiciono as vendas em cada um dos vendedores?
+
+vendas_mac = [10,15,6,70]
+
+"""
+# RESPOSTA:
+vendedores = ['Lira', 'João', 'Diego', 'Alon']
+produtos = ['ipad', 'iphone']
+vendas = [
+    [100, 200],
+    [300, 500],
+    [50, 1000],
+    [900, 10],
+]
+# a
+vendas_ipad_joao = vendas[1][0]
+print(vendas_ipad_joao)
+# b
+vendas_iphone_diego = vendas[2][1]
+print(vendas_iphone_diego)
+# c
+vendas_iphone = 0
+for i in range(len(vendas)):
+    vendas_iphone += vendas[i][1]
+print(vendas_iphone)
+# d
+vendas[0][1] = 50
+# e
+produtos.append('mac')
+vendas_mac = [10,15,6,70]
+for i in range(len(vendas)):
+    vendas[i].append(vendas_mac[i])
+
+print(vendas)
