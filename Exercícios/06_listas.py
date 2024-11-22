@@ -7,35 +7,9 @@ Qual foi o valor de vendas do melhor mês do Ano?
 E valor do pior mês do ano?
 """
 
-meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun']
+meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
 vendas_1sem = [25000, 29000, 22200, 17750, 15870, 19900]
 vendas_2sem = [19850, 20120, 17540, 15555, 49051, 9650]
-
-# RESPOSTA:
-
-vendas_total = []
-valor_vendas = 0
-for i in range(5):
-    valor = vendas_1sem[i] + vendas_2sem[i]
-    valor_vendas += valor
-    vendas_total.append(valor)
-"""
-    if i == 0:
-        maior = valor
-        indice_maior = i
-        menor = valor
-        indice_menor = i
-    else:
-        if valor > maior:
-            maior = valor
-            indice_maior = i
-        elif valor < menor:
-            menor = valor
-            indice_menor = i
-"""
-
-
-print(f'')   
 
 """
 2. Continuação
@@ -46,6 +20,20 @@ Calcule também o faturamento total do Ano e quanto que o melhor mês represento
 
 Obs: Para o faturamento total, pode usar a função sum(lista) que soma todos os itens de uma lista
 """
+# RESPOSTA:
+
+vendas_ano = vendas_1sem + vendas_2sem
+vendas_melhor_mes = max(vendas_ano)
+vendas_pior_mes = min(vendas_ano)
+melhor_mes = meses[vendas_ano.index(vendas_melhor_mes)]
+
+print(f'O melhor mês do ano foi "{melhor_mes}", com R$ {vendas_melhor_mes:.2f} em vendas'.replace('.',',') + \
+        '.\n' + f'O total de vendas do pior mês foi R$ {vendas_pior_mes:.2f}'.replace(".",","))
+
+faturamento = sum(vendas_ano)
+perc_melhor_mes =  vendas_melhor_mes/faturamento*100
+print(f'O faturamento do melhor mês representa {perc_melhor_mes:.2f}% do faturamento total, \
+que foi de R${faturamento:.2f}'.replace('.',','))
 
 
 """
@@ -55,6 +43,15 @@ Dica: o método remove retira um item da lista.
 """
 
 top3 = []
+var1 = vendas_ano.pop(vendas_ano.index(max(vendas_ano)))
+top3.append(var1)
+var1 = vendas_ano.pop(vendas_ano.index(max(vendas_ano)))
+top3.append(var1)
+var1 = vendas_ano.pop(vendas_ano.index(max(vendas_ano)))
+top3.append(var1)
+
+string_top3 = ', '.join(map(str, top3))
+print(f'Os 3 maiores valores de venda são, respectivamente: {string_top3}')
 
 
 """
@@ -64,7 +61,8 @@ top3 = []
 
 Digamos que você trabalhe em uma empresa de ecommerce
 
-No Brasil, o imposto sobre livros é zerado. De um ano para o outro, o governo criou um novo imposto que incide em 10% sobre o valor dos livros e agora você precisa alterar o registro dos preços dos livros da empresa para garantir que esse imposto vai ser repassado para o preço final do produto.
+No Brasil, o imposto sobre livros é zerado. De um ano para o outro, o governo criou um novo imposto que incide em 10% sobre o valor dos livros e
+agora você precisa alterar o registro dos preços dos livros da empresa para garantir que esse imposto vai ser repassado para o preço final do produto.
 
 Crie um código que recalcule o valor do livro da sua lista de produtos e ajuste na tabela.
 
@@ -90,6 +88,26 @@ produtos_ecommerce = [
     [1900, 400]
 ]
 
+taxa_imposto = 0.1
+impacto_total = 0
+for i in range(len(produtos)):
+    nome = produtos[i].lower()
+    vendas, preco = produtos_ecommerce[i]
+
+    if "livro" in nome:
+        imposto = preco * taxa_imposto
+        produtos_ecommerce[i][1] += imposto
+        impacto_total += vendas * imposto
+
+        
+print("Tabela atualizada de produtos:")
+for i in range(len(produtos)):
+    nome = produtos[i]
+    vendas, preco = produtos_ecommerce[i]
+    print(f'{nome.capitalize()}: {vendas} vendas, Preço: R$ {preco:.2f}'.replace(".", ","))
+
+print(f"\nImpacto financeiro total do imposto: R$ {impacto_total:.2f}".replace(".", ","))
+
 # EXERCÍCIOS EXTRA
 # Exercício 1
 # Crie um sistema de cadastro de produtos em uma lista de produtos
@@ -100,8 +118,7 @@ produtos_ecommerce = [
 # - Se o usuário inserir um produto que não existe na lista, o programa deve inserir na lista, printar a mensagem Produto X cadastrado com sucesso e em seguida printar a lista completa
 produtos = ["celular", "camera", "fone de ouvido", "monitor"]
 
-novo_produto = input("Digite o produto para cadastrar:")
-novo_produto = novo_produto.lower()
+novo_produto = input("Digite o produto para cadastrar:").lower()
 
 if novo_produto in produtos:
     print("Produto já existente, tente novamente")

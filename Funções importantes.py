@@ -1,6 +1,16 @@
 #Laço for
 for i in range(0,4,1):
-    print(1)
+    print(i)
+
+print('break')
+
+for i in range(0,9,2):
+    print(i)
+
+print('break')
+
+for i in range(5,9,2):
+    print(i)
 
 # Imprimindo com variáveis
 var1 = 10
@@ -93,7 +103,7 @@ produtos.append('Iphone 12')
 # Recomendado sempre botar em try except, pois, caso não possua, resulta em erro.
 produto = input('Digite o produto:\n')
 try:
-    # produtos.remove('celular')    
+    # produtos.remove('celular') - remove pelo nome, não armazena em variável.
     produtos.remove(produto)
 except:
     print(f'produto {produto} não existe')
@@ -138,11 +148,45 @@ vendas.sort()
 # Juntando valores de lista em uma string
 print('\n'.join(produtos))
 lista = ', '.join(produtos)
+top3 = ['tv', 'celular', 'tablet']
+# map
+# Utilizando o join com valores inteiros
+# Necessário utilizar o map, para mapear como string
+string_top3 = ', '.join(map(str, top3))
+
+print(f'Os 3 maiores valores de venda são, respectivamente: {string_top3}')
 # Separando novamente a lista
 print(produtos)
+# split
 produtos = lista.split
 print(lista)
 # Para mais métodos, consultar https://docs.python.org/3/tutorial/datastructures.html
+
+produtos_ecommerce = [
+    [10000, 2500],
+    [50000, 40],
+    [7000, 1200],
+    [20000, 1500],
+    [5800, 1300],
+    [7200, 2500],
+    [200, 800],
+    [3300, 700],
+    [1900, 400]
+]
+# Atribuir valores a um array:
+for i in range(len(produtos_ecommerce)):
+    vendas, preco = produtos_ecommerce[i]
+    print(f'vendas:{vendas}; preco:{preco}')
+
+# for in:
+for produto_iterador in produtos:
+    print(produto_iterador)
+
+# for in, enumerate - percorre a lista e numera o índice.
+# torna-se mais lento
+funcionarios = ['Maria', 'José', 'Lucas']
+for i , funcionario in enumerate(funcionarios):
+    print('{} é o funcionário {}'.format(i, funcionario))
 
 # Alterações incrementais
 var1 = 10
@@ -179,3 +223,21 @@ vendas = [
 ]
 vendas_ipad_joao = vendas[1][0]
 print(vendas_ipad_joao)
+
+# Digitando com moedas
+meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
+vendas_1sem = [25000, 29000, 22200, 17750, 15870, 19900]
+vendas_2sem = [19850, 20120, 17540, 15555, 49051, 9650]
+
+vendas_ano = vendas_1sem + vendas_2sem
+vendas_melhor_mes = max(vendas_ano)
+vendas_pior_mes = min(vendas_ano)
+melhor_mes = meses[vendas_ano.index(vendas_melhor_mes)] 
+print(f'O melhor mês do ano foi "{melhor_mes}", com R$ {vendas_melhor_mes:.2f} em vendas'.replace('.',',') + \
+        '.\n' + f'O total de vendas do pior mês foi R$ {vendas_pior_mes:.2f}'.replace(".",","))
+
+# Soma total de um array
+faturamento = sum(vendas_ano)
+
+#Tornar a peimeira letra maiúscula
+string_top3.capitalize()
