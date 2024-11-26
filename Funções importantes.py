@@ -36,6 +36,7 @@ else:
 # Repetição para ler int
 # Laço while
 # Try Except
+# WHILE
 while True:
     try:
         total_estoque = int(input("Digite um número inteiro: "))
@@ -241,3 +242,21 @@ faturamento = sum(vendas_ano)
 
 #Tornar a peimeira letra maiúscula
 string_top3.capitalize()
+
+# BREAK - Pausa o laço
+# CONTINUE - Ignora a execução em determinada condição
+# QUOCIENTE - dado por //
+# RESTO - dado por %
+for i in range(3,45,3):
+    if i//3 == 8:
+        break
+    elif i % 2 == 0:
+        continue
+    else:
+        print(f'{i} é impar')
+
+# Condição de limite inferior e superior
+nota = float(input('Informe uma nota entre 0 e 10: '))
+while not (0 <= nota <= 10):
+    print('Nota inválida')
+    nota = float(input('Informe uma nota entre 0 e 10: '))

@@ -1,12 +1,7 @@
-for i in range(0,4,1):
-    print(i)
-
-print('break')
-
-for i in range(0,9,2):
-    print(i)
-
-print('break')
-
-for i in range(5,9,2):
-    print(i)
+for i in range(3,45,3):
+    if i//3 == 8:
+        break
+    elif i % 2 == 0:
+        continue
+    else:
+        print(f'{i} é impar')
