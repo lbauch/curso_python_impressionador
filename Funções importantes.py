@@ -77,13 +77,21 @@ print(f'Telefone corrigido com formatação: {tel[:4]}-{tel[4:]}')
 tel = tel.replace('-', '')
 
 # Format
-custo = 500
-faturamento = 270
+custo = 5000
+faturamento = 2700
 lucro = faturamento - custo
 print('o faturamento: {}, custo: {}, lucro: {}'.format(faturamento, custo, lucro))
+# Neste caso, insere sempre o sinal na frente, mesmo que seja positivo, e insere a vírgula como separador de milhar.
 print('Faturamento foi {:+,} e lucro foi {:+,}'.format(faturamento, lucro))
+# .2, .1 indica a qtd de casas decimais
 print('Faturamento foi {:.2f} e lucro foi {:2f}'.format(faturamento, lucro))
+# Porcentagem
+print('Faturamento foi {:.1%}'.format(faturamento))
+# o underline(_)cria separador de milhares com _
 lucro_texto = 'R${:_.2f}'.format(faturamento - custo)
+print(lucro_texto)
+lucro_texto = 'R${:_.2f}'.format(faturamento - custo).replace('.',',').replace('_','.')
+print(lucro_texto)
 
 
 # Concatenação de Strings
@@ -260,3 +268,14 @@ nota = float(input('Informe uma nota entre 0 e 10: '))
 while not (0 <= nota <= 10):
     print('Nota inválida')
     nota = float(input('Informe uma nota entre 0 e 10: '))
+
+# TUPLAS
+vendas = ('Lucas', '01/01/2024', '01/01/2000', 2000, 'Auxiliar')
+# Recomendado utilizar try except, pois a quantidade de variáveis deve ser a mesma que a quantidade de valores. 
+nome, data_contratacao, data_nascimento, salario, cargo = vendas
+
+# enumerate, passando o índice e valor
+# primeira variável representa o índice e a segunda representa o valor
+# Ao percorrer uma lista desta forma, é retornada uma tupla.
+for i, venda in enumerate(vendas):
+        print('{} vendeu {} unidades'.format(funcionarios[i], venda))
