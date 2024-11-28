@@ -1,4 +1,5 @@
-#Laço for
+
+#------Laço for
 for i in range(0,4,1):
     print(i)
 
@@ -18,10 +19,8 @@ print(f"Faturamento Pepsi: {var1:,.2f}")
 print(f'em centímetros: {var1 / 100}')
 print('em centímetros: {var1 / 100}')
 
-# in; str
-# Upper
+# in
 alcoolico = 'bac'
-print('Código é de bebida alcóolica? ' + str('BAC' in alcoolico.upper()))
 print('Lucas' in 'Meu nome é Lucas')
 print('lucas' in 'Meu nome é Lucas')
 
@@ -34,7 +33,7 @@ else:
     print(f'{i} é maior que 5')
 
 # Repetição para ler int
-# Laço while
+# ------Laço while
 # Try Except
 # WHILE
 while True:
@@ -43,6 +42,13 @@ while True:
         break
     except ValueError:
         print("Por favor, digite um número inteiro válido.")
+
+
+# ------Strings
+
+# str - transformar em string
+# Upper -maiúsculas
+print('Código é de bebida alcóolica? ' + str('BAC' in alcoolico.upper()))
 
 # Comparação de Strings
 # Len
@@ -76,6 +82,9 @@ print(f'Telefone corrigido com formatação: {tel[:4]}-{tel[4:]}')
 # Replace
 tel = tel.replace('-', '')
 
+#Tornar a primeira letra maiúscula
+email.capitalize()
+
 # Format
 custo = 5000
 faturamento = 2700
@@ -98,11 +107,14 @@ print(lucro_texto)
 print('1' + '2')
 print(1 + 2)
 
-# Listas
+# ------Listas
 produtos = ['tv', 'celular', 'tablet', 'mouse', 'teclado', 'geladeira', 'forno']
 # Iterador
 i = produtos.index('geladeira')
 produto_escolhido = produtos[i]
+
+# deletar valor
+del produtos[1]
 
 # Substituir item
 produtos[2] = 'Iphone 11'
@@ -197,7 +209,7 @@ funcionarios = ['Maria', 'José', 'Lucas']
 for i , funcionario in enumerate(funcionarios):
     print('{} é o funcionário {}'.format(i, funcionario))
 
-# Alterações incrementais
+# ------Alterações incrementais
 var1 = 10
 var1 = var1 + 5
 print(var1)
@@ -221,7 +233,7 @@ lista2 = lista1[:2]
 print(lista2)
 lista2 = lista1[1:3]
 
-# Listas de listas - matrizes
+# ------Listas de listas - matrizes
 vendedores = ['Lira', 'João', 'Diego', 'Alon']
 produtos = ['ipad', 'iphone']
 vendas = [
@@ -248,9 +260,6 @@ print(f'O melhor mês do ano foi "{melhor_mes}", com R$ {vendas_melhor_mes:.2f} 
 # Soma total de um array
 faturamento = sum(vendas_ano)
 
-#Tornar a peimeira letra maiúscula
-string_top3.capitalize()
-
 # BREAK - Pausa o laço
 # CONTINUE - Ignora a execução em determinada condição
 # QUOCIENTE - dado por //
@@ -269,7 +278,7 @@ while not (0 <= nota <= 10):
     print('Nota inválida')
     nota = float(input('Informe uma nota entre 0 e 10: '))
 
-# TUPLAS
+# ------TUPLAS
 vendas = ('Lucas', '01/01/2024', '01/01/2000', 2000, 'Auxiliar')
 # Recomendado utilizar try except, pois a quantidade de variáveis deve ser a mesma que a quantidade de valores. 
 nome, data_contratacao, data_nascimento, salario, cargo = vendas
@@ -279,3 +288,85 @@ nome, data_contratacao, data_nascimento, salario, cargo = vendas
 # Ao percorrer uma lista desta forma, é retornada uma tupla.
 for i, venda in enumerate(vendas):
         print('{} vendeu {} unidades'.format(funcionarios[i], venda))
+
+
+# ------DICIONÁRIOS - Similar ao JSon
+
+vendas_tecnologia = {'iphone': 15000, 'samsung galaxy': 12000, 'tv samsung': 10000, 'ps5': 14300, 'tablet': 1720, 'ipad': 1000, 'tv philco': 2500, 'notebook hp': 1000, 'notebook dell': 17000, 'notebook asus': 2450}
+mais_vendidos = {'tecnologia': 'iphone', 'refrigeracao': 'ar consul 12000 btu', 'livros': 'o alquimista', 'eletrodoméstico': 'geladeira', 'lazer': 'prancha surf'}
+# Obtendo e validando dados:
+# Valida se a chave copo existe em tecnologia
+if 'copo' in vendas_tecnologia:
+    print(vendas_tecnologia['copo'])
+else:
+    print('copo não está na lista de produtos de tecnologia')
+
+# Verifica se é encontrado algum valor com o dado
+if vendas_tecnologia.get('copo') == None:
+    print('Copo não está dentro da lista de produtos de tecnologia')
+else:
+    print(vendas_tecnologia.get('copo'))
+
+# clear() -> Deleta todos os elementos do Dicionário (semelhante ao que aprendemos em listas)
+vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+vendas_mes.clear()
+# copy() -> Cria uma cópia do dicionário (semelhante ao que aprendemos em listas)
+vendas2_mes = vendas_mes.copy()
+print(vendas2_mes)
+# fromkeys(chaves, valor_padrao) -> Cria um dicionário com as chaves e o mesmo valor padrão para todas as chaves
+chaves = ('jan', 'fev', 'mar')
+vendas = 100
+vendas_mes = dict.fromkeys(chaves, vendas)
+# get(chave) -> 	Retorna o valor especificado pela chave (Semelhante a fazer dictionario[chave]
+vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+print(vendas_mes.get('mar'))
+# items() -> Retorna uma lista em que cada item é uma tupla com (chave, valor)
+vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+print(list(vendas_mes.items()))
+# keys() -> Retorna uma lista com todas as chaves do dicionário
+print(list(vendas_mes.keys()))
+# pop(chave) -> Retira o item do dicionário e retorna o valor dele para ser usado
+vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+vendas_fev = vendas_mes.pop('fev') #retira o fevereiro do dicionário ao mesmo tempo que armazena o valor dele na variável
+print(vendas_mes)
+print(vendas_fev)
+# popitem() -> Retira o último item adicionado ao dicionário
+vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+#retira o último item adicionado no dicionário ao mesmo tempo que armazena o item(chave, valor) dele na variável
+vendas_ult = vendas_mes.popitem() 
+print(vendas_mes)
+print(vendas_ult)
+# Update - caso seja passado um dicionário fixo, modifica o dicionário
+# caso seja passado uma variável que contenha um dicionário, 
+# update(dicionario) -> Adiciona o dicionário passado como parâmetro ao dicionário original - adiciona ao final
+vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+vendas_2tri = {'abr': 400, 'mai': 600, 'jun': 500}
+vendas_mes.update(vendas_2tri)
+print(vendas_mes)
+# update passando  atualiza o dicionário.
+lucro_1tri = {'janeiro': 100000, 'fevereiro': 120000, 'março': 90000}
+lucro_1tri.update({'janeiro': 100000, 'fevereiro': 120000, 'março': 90000, 'abril': 88000})
+print(lucro_1tri)
+# setdefault(chave, valor) -> Retorna o valor da chave passada, mas caso a chave não exista, cria no dicionário o item com a chave e valor passados.
+vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+vendas_fev = vendas_mes.setdefault('fev', 500)
+print(vendas_fev)
+# omo fevereiro existe na lista, ele procura pelo valor de fevereiro e ignora o 500 passado
+# agora quando não existe na lista:
+vendas_abr = vendas_mes.setdefault('abr', 600)
+# Agora além de vendas_abr retornar o 600 como valor, ele adicionou um item no dicionario
+print(vendas_abr)
+print(vendas_mes)
+# values() -> Retorna uma lista com todos os valores do dicionários
+vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+print(list(vendas_mes.values()))
+# Alterando (Caso já exista), ou adicionando algum valor:
+lucro_1tri = {'janeiro': 100000, 'fevereiro': 120000, 'março': 90000}
+lucro_1tri['abril'] = 88000
+# del - CUIDADO AO UTILIZAR - pode deletar o dicionário competo
+# Exclui o valor armazenado em [0]
+del lucro_1tri[0]
+# Exclui todo o dicionário
+del lucro_1tri
+
+
