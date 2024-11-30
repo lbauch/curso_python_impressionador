@@ -434,3 +434,13 @@ lista_tuplas = zip(produtos, vendas)
 # dict cria um dicionário com a lista de tuplas
 dicionario_vendas = dict(lista_tuplas)
 print(dicionario_vendas)
+
+
+#  ------ITERABLES
+
+# Tuplas, dicionários, strings e listas são iterables.
+# Conjunto de dados que pode ser percorrido
+
+# set - Parecido com o dicionário, porém, contém somente valores, não possui chaves
+# Não possui ordem fixa
+# Não possui valores duplicados. Pode ser uma forma de remover duplicatas de listas
