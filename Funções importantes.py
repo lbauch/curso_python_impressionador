@@ -114,7 +114,11 @@ i = produtos.index('geladeira')
 produto_escolhido = produtos[i]
 
 # deletar valor
+# Cuidado ao utilizar, pois pode excluir toda a variável
 del produtos[1]
+
+# Organizar lista:
+produtos.sort()
 
 # Substituir item
 produtos[2] = 'Iphone 11'
@@ -326,6 +330,12 @@ for mes, qtd in vendas_mes.items():
     print('{}: {} unidades'.format(produto, qtd))
 print(list(vendas_mes.items()))
 # keys() -> Retorna uma lista com todas as chaves do dicionário
+# Ao adicionar, remover ou alterar itens do dicionário, faz as modificações na variável criada também.
+# Neste caso, a variável criada é listas_dicionario, que será alterada caso o dicionário seja modificado
+# Ao imprimir o dict.keys(), imprime em formato de dicionário.
+# Ao utilizar o list(dict.keys()), imprime como lista
+listas_dicionario = vendas_mes.keys()
+vendas_mes['abr'] = 160
 print(list(vendas_mes.keys()))
 # pop(chave) -> Retira o item do dicionário e retorna o valor dele para ser usado
 vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
@@ -352,15 +362,23 @@ print(lucro_1tri)
 # setdefault(chave, valor) -> Retorna o valor da chave passada, mas caso a chave não exista, cria no dicionário o item com a chave e valor passados.
 vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
 vendas_fev = vendas_mes.setdefault('fev', 500)
+
 print(vendas_fev)
-# omo fevereiro existe na lista, ele procura pelo valor de fevereiro e ignora o 500 passado
-# agora quando não existe na lista:
+# Como fevereiro existe na lista, ele procura pelo valor de fevereiro e ignora o 500 passado
+# Agora quando não existe na lista:
 vendas_abr = vendas_mes.setdefault('abr', 600)
 # Agora além de vendas_abr retornar o 600 como valor, ele adicionou um item no dicionario
 print(vendas_abr)
 print(vendas_mes)
 # values() -> Retorna uma lista com todos os valores do dicionários
+# Ao adicionar, remover ou alterar itens do dicionário, faz as modificações na variável criada também.
+# Neste caso, a variável criada é listas_dicionario, que será alterada caso o dicionário seja modificado
+# Ao imprimir o dict.values(), imprime em formato de dicionário.
+# Ao utilizar o list(dict.values()), imprime como lista
 vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+listas_dicionario = vendas_mes.values()
+print(listas_dicionario)
+vendas_mes['abr'] = 160
 print(list(vendas_mes.values()))
 # Alterando (Caso já exista), ou adicionando algum valor:
 lucro_1tri = {'janeiro': 100000, 'fevereiro': 120000, 'março': 90000}
@@ -390,3 +408,29 @@ for item in video:
 # Como download é um array, pega o primeiro item
 # Pega o valor da chave como nome link
 print(video['download'][0]['link'])
+
+"""
+- Dicionário com valores padrões:
+
+dicionario = dict.fromkeys(lista_chaves, valor_padrao)
+
+- Dicionário a partir de listas de tuplas:
+
+dicionario = dict(lista_tuplas)
+
+- Dicionário a partir de 2 listas:
+
+Passo 1: Transformar listas em lista de tuplas com o método zip
+Passo 2: Transformar em dicionario
+
+lista_tuplas = zip(lista1, lista2)
+dicionario = dict(lista_tuplas)
+"""
+produtos = ['iphone', 'samsung galaxy', 'tv samsung', 'ps5', 'tablet', 'ipad', 'tv philco', 'notebook hp', 'notebook dell', 'notebook asus']
+vendas = [15000, 12000, 10000, 14300, 1720, 1000, 2500, 1000, 17000, 2450]
+# zip une as duas listas com os valores
+# transforma em uma lista de tuplas
+lista_tuplas = zip(produtos, vendas)
+# dict cria um dicionário com a lista de tuplas
+dicionario_vendas = dict(lista_tuplas)
+print(dicionario_vendas)
