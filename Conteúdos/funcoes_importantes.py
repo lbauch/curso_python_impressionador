@@ -1,3 +1,5 @@
+# Para mais informações, w3schools é muito boa para Python
+
 
 #------Laço for
 for i in range(0,4,1):
@@ -18,6 +20,10 @@ var1 = 10
 print(f"Faturamento Pepsi: {var1:,.2f}")
 print(f'em centímetros: {var1 / 100}')
 print('em centímetros: {var1 / 100}')
+
+# sep - define o separador ao utilizar a função
+# sep deve ser o último parâmetro
+print(1, 2, 3, sep = ';')
 
 # in
 alcoolico = 'bac'
@@ -71,6 +77,25 @@ print(s_novo)
 s_novo = s1.split('o')
 print(s_novo)
 
+# Funções importantes de strings
+# - capitalize() -> Coloca a 1ª letra Maiúscula
+# - casefold() -> Transforma todas as letras em minúsculas (existe lower() mas o casefold é melhor normalmente)
+# - count()	-> Quantidade de vezes que um valor aparece na string
+# - endswith() -> Verifica se o texto termina com um valor específico e dá como resposta True ou False
+# - find() -> Procura um texto dentro de outro texto e dá como resposta a posição do texto encontrado
+# - format() -> Formata uma string de acordo com os valores passados. Já usamos bastante ao longo do programa.
+# - isalnum() -> Verifica se um texto é todo feito com caracteres alfanuméricos (letras e números) -> letras com acento ou ç são considerados letras para essa função.
+# - isalpha() -> Verifica se um texto é todo feito de letras.
+# - isnumeric()	-> Verifica se um texto é todo feito por números.
+# - replace() -> Substitui um texto por um outro texto em uma string.
+# - split()	-> Separa uma string de acordo com um delimitador em vários textos diferentes.
+# - splitlines() -> separa um texto em vários textos de acordo com as quebras de linha do texto
+# - startswith() -> Verifica se a string começa com determinado texto
+# - strip()	-> Retira caracteres indesejados dos textos. Por padrão, retira espaços "extras" no início e no final
+# - title() -> Coloca a 1ª letra de cada palavra em maiúscula
+# - upper()	-> Coloca o texto todo em letra maiúscula
+# - strip() -> Remove espaços no início e no final.
+
 #conversão len para String - sem a conversão, resulta em erro.
 email = 'lucasb@gmail'
 print('Tamanho do email:' + str(len(email)))
@@ -118,7 +143,12 @@ produto_escolhido = produtos[i]
 del produtos[1]
 
 # Organizar lista:
+# Por padrão, organiza em ordem crescente. - reverse = false
+# Para organizar em formato decrescente, necessário colocar o parâmetro reverse = true
 produtos.sort()
+print(produtos)
+produtos.sort(reverse = True)
+print(produtos)
 
 # Substituir item
 produtos[2] = 'Iphone 11'
@@ -444,3 +474,54 @@ print(dicionario_vendas)
 # set - Parecido com o dicionário, porém, contém somente valores, não possui chaves
 # Não possui ordem fixa
 # Não possui valores duplicados. Pode ser uma forma de remover duplicatas de listas
+
+
+#  ------FUNCTIONS
+
+# Obs Importante: a função deve estar SEMPRE antes de ser usada.
+
+# Normalmente, nos nossos códigos, fazemos as definições de todas as funções antes e depois construimos o resto do código.
+# É comum dar '2 enters' após a definição da função para deixar o código mais organizado
+def func1 (par_1, par_2, par_n):
+    return par_1 + par_2 + par_n
+
+
+def categoria_produto(bebida, cod_categoria):
+    bebida = bebida.upper()
+    if cod_categoria in bebida:
+        return True
+    else:
+        return False
+
+
+produtos = ['CAR46275','TFA23962','TFA64715','TFA69555','TFA56743','BSA45510',\
+            'TFA44968','CAR75448','CAR23596','CAR13490','BEB21365','BEB31623',\
+            'BSA62419','BEB73344','TFA20079','BEB80694','BSA11769','BEB19495',\
+            'TFA14792','TFA78043','BSA33484','BEB97471','BEB62362','TFA27311',\
+            'TFA17715','BEB85146','BEB48898','BEB79496','CAR38417','TFA19947',\
+            'TFA58799','CAR94811','BSA59251','BEB15385','BEB24213','BEB56262',\
+            'BSA96915','CAR53454','BEB75073']
+
+# Ao utilizar, temos 2 formas de atribuição:
+for produto in produtos:
+# Forma 1: Atribuindo a ordem específica de atribuição, definindo os nomes corretamente
+    #if categoria_produto(bebida = produto, cod_categoria = 'BEB'):
+    if categoria_produto(produto, cod_categoria = 'BEB'):
+        print('Enviar {} para setor de bebidas alcóolicas'.format(produto))
+# Forma 2: Passando os parâmetros que serão atribuídos na ordem de entrada
+    elif categoria_produto(produto, 'BSA'):
+        print('Enviar {} para setor de bebidas não alcóolicas'.format(produto))
+# Ao passar um parâmetro com palavra chaves, todos os parâmetros seguintes à direita precisam estar também.
+
+# Definir valores padrão para um parâmetro:
+# atribui 'm' como valor padrão do parâmetro padrão
+def padronizar_codigos(lista_codigos, padrao='m'):
+    for i, item in enumerate(lista_codigos):
+        item = item.replace('  ', ' ')
+        item = item.strip()
+        if padrao == 'm':
+            item = item.casefold()
+        elif padrao == 'M':
+            item = item.upper()
+        lista_codigos[i] = item
+    return lista_codigos
