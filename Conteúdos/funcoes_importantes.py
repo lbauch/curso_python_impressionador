@@ -545,3 +545,27 @@ def separar_listas(precos, tamanhos, fator=0.1):
         else:
             print('As listas de precos e tamanhos dos imoveis não têm a mesma quantidade de itens')
             return
+        
+# raise - importante para functions
+def minha_soma(num1, num2, num3, num4):
+    # Verificar os tipos dos parâmetros
+    if not isinstance(num1, int):
+        raise TypeError("num1 deve ser um inteiro!")
+    if not isinstance(num2, str):
+        raise TypeError("num2 deve ser uma string!")
+    if not isinstance(num3, bool):
+        raise TypeError("num3 deve ser um booleano!")
+    if not isinstance(num4, float):
+        raise TypeError("num4 deve ser um número de ponto flutuante!")
+
+    # Realizar algum processamento (exemplo de soma, se desejado)
+    return f"Soma de valores: {num1} + {num4} = {num1 + num4}"
+
+# Exemplos de uso
+try:
+    resultado = minha_soma(1, "exemplo", True, 3.5)  # Correto
+    print(resultado)  # Saída: Soma de valores: 1 + 3.5 = 4.5
+
+    resultado = minha_soma(1, "exemplo", True, "3.5")  # Incorreto
+except TypeError as e:
+    print(e)

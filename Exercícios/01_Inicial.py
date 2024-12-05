@@ -54,3 +54,4 @@ print(f"Margem: {margem:,.2%}")
 
 alcolica = input('Digite o código: ')
 print('Código é de bebida alcóolica? ' + str('BAC' in alcolica.upper()))
+
