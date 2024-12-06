@@ -40,7 +40,7 @@ else:
 
 # Repetição para ler int
 # ------Laço while
-# Try Except
+# Try Except else finally
 # WHILE
 while True:
     try:
@@ -48,6 +48,13 @@ while True:
         break
     except ValueError:
         print("Por favor, digite um número inteiro válido.")
+    else:
+# Executa o else somente se não resultar em erro.
+        print('número informado é válido')
+# Executa o finally caso ocorra ou não o erro.
+    finally:
+        print('fim do while')
+
 
 
 # ------Strings
@@ -569,3 +576,55 @@ try:
     resultado = minha_soma(1, "exemplo", True, "3.5")  # Incorreto
 except TypeError as e:
     print(e)
+
+# IMPORTANTE
+# Funções com quantidade de parâmetros indefinida
+# Após o asterisco, não se pode mais usar parâmetros.
+
+# ** define o valor recebido e a chave - retorna como um dicionário único
+def preco_final(preco, **adicionais):
+    print(adicionais)
+    if 'desconto' in adicionais:
+        preco *= (1 - adicionais['desconto'])
+    if 'garantia_extra' in adicionais:
+        preco += adicionais['garantia_extra'] 
+    if 'imposto' in adicionais:
+        preco *= (1 + adicionais['imposto'])
+    return preco
+
+print(preco_final(1000, desconto=0.1, garantia_extra = 100, imposto=0.3))
+
+# Outra forma:
+def minha_soma(*numeros):
+    print(numeros)
+    soma = 0
+    for numero in numeros:
+        soma += numero
+    return soma
+# Atribui quantos parâmetros forem necessários.
+print(minha_soma(10, 13, 1, 10, 90, 0, 9, 8))
+
+# Ordem dos Argumentos
+
+### Estrutura:
+
+# - Sempre os positional arguments vêm antes e depois os keywords arguments.
+# - Sempre os argumentos individuais vêm antes e depois os "múltiplos"
+
+# def minha_funcao(arg1, arg2, arg3, arg4, *args, k = kwarg1, k2 = kwarg2, k3 = kwarg3, **kwargs):
+#     ...
+
+def minha_soma(arg1, arg2, *args1, arg3, arg4, **args2):
+    soma = 0
+    soma += arg1 - arg2
+    print(soma)
+    for arg in args1:
+        soma += arg
+    print(soma)
+    soma += arg3 + arg4
+    print(soma)
+    for args in args2:
+        print(args)
+
+# Atribui quantos parâmetros forem necessários.
+print(minha_soma(10, 5, 1, 10, arg1 = 90, arg2 =  0, arg3 = 9, arg4 = 8))
