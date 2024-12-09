@@ -366,6 +366,17 @@ vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
 for mes, qtd in vendas_mes.items():
     print('{}: {} unidades'.format(produto, qtd))
 print(list(vendas_mes.items()))
+
+# Percorrendo o dicionário
+bonus = []
+vendedores_dic = {'Maria': 1200, 'José': 300, 'Antônio': 800, 'João': 1500, 'Francisco': 1900, 'Ana': 2750, 'Luiz': 400, 'Paulo': 20, 'Carlos': 23, 'Manoel': 70, 'Pedro': 90, 'Francisca': 80, 'Marcos': 1100, 'Raimundo': 999, 'Sebastião': 900, 'Antônia': 880, 'Marcelo': 870, 'Jorge': 50, 'Márcia': 1111, 'Geraldo': 120, 'Adriana': 300, 'Sandra': 450, 'Luis': 800}
+meta = 1000
+for item in vendedores_dic:
+    if vendedores_dic[item] > meta:
+        bonus.append(vendedores_dic[item] * 0.1)
+    else:
+        bonus.append(0)
+
 # keys() -> Retorna uma lista com todas as chaves do dicionário
 # Ao adicionar, remover ou alterar itens do dicionário, faz as modificações na variável criada também.
 # Neste caso, a variável criada é listas_dicionario, que será alterada caso o dicionário seja modificado
@@ -468,7 +479,12 @@ vendas = [15000, 12000, 10000, 14300, 1720, 1000, 2500, 1000, 17000, 2450]
 # zip une as duas listas com os valores
 # transforma em uma lista de tuplas
 lista_tuplas = zip(produtos, vendas)
+# Caso seja impressa a lista criada, é retornado um endereço de memória.
+print(lista_tuplas)
+# Necessário criar um dicionário através do dict
+# Para uma lista, usar list
 # dict cria um dicionário com a lista de tuplas
+# FUNÇÃO DICT
 dicionario_vendas = dict(lista_tuplas)
 print(dicionario_vendas)
 
@@ -627,3 +643,72 @@ def minha_soma(arg1, arg2, *args1, arg3, arg4, **args2):
         print(value)
 # Atribui quantos parâmetros forem necessários.
 print(minha_soma(10, 5, 1, 10, arg3 = 90, arg4 =  3, arg5 = 9, arg6 = 8))
+
+
+# ------LIST COMPREHENSION
+preco_produtos = [100, 150, 300, 5500]
+produtos = ['vinho', 'cafeiteira', 'microondas', 'iphone']
+
+# Forma aprendida até agora
+impostos = []
+for item in preco_produtos:
+    impostos.append(item * 0.3)
+print(impostos)
+
+# Utilizando list comprehension
+impostos = [preco * 0.3 for preco in preco_produtos]
+print(impostos)
+
+# Utilizando functions dentro do list_comprehension
+def calcular_imposto(preco, imposto):
+    return preco * imposto
+
+impostos = [calcular_imposto(preco, 0.3) for preco in preco_produtos]
+print(impostos)
+
+# Ordenando duas listas relacionadas com zip
+vendas_produtos = [1500, 150, 2100, 1950]
+produtos = ['vinho', 'cafeiteira', 'microondas', 'iphone']
+
+lista_aux = list(zip(vendas_produtos, produtos))
+lista_aux.sort(reverse=True)
+produtos = [produto for vendas, produto in lista_aux]
+print(produtos)
+
+vendas_produtos = [('iphone', 558147, 951642), ('galaxy', 712350, 244295), ('ipad', 573823, 26964), ('tv', 405252, 787604), ('máquina de café', 718654, 867660), ('kindle', 531580, 78830), ('geladeira', 973139, 710331), ('adega', 892292, 646016), ('notebook dell', 422760, 694913), ('notebook hp', 154753, 539704), ('notebook asus', 887061, 324831), ('microsoft surface', 438508, 667179), ('webcam', 237467, 295633), ('caixa de som', 489705, 725316), ('microfone', 328311, 644622), ('câmera canon', 591120, 994303)]
+vendas2019 = [(produto, vendas_2019) for produto, vendas_2019, vendas2020 in vendas_produtos]
+print(vendas2019)
+
+# List comprehension com condição
+# Para filtro
+meta = 1000
+vendas = [1500, 150, 2100, 1950]
+produtos = ['vinho', 'cafeteira', 'microondas', 'iphone']
+produtos_acima_meta = [produto for i, produto in enumerate(produtos) if vendas_produtos[i] > meta]
+print(produtos_acima_meta)
+
+# Para alterar o resultado final
+vendedores_dic = {'Maria': 1200, 'José': 300, 'Antônio': 800, 'João': 1500, 'Francisco': 1900, 'Ana': 2750, 'Luiz': 400, 'Paulo': 20, 'Carlos': 23, 'Manoel': 70, 'Pedro': 90, 'Francisca': 80, 'Marcos': 1100, 'Raimundo': 999, 'Sebastião': 900, 'Antônia': 880, 'Marcelo': 870, 'Jorge': 50, 'Márcia': 1111, 'Geraldo': 120, 'Adriana': 300, 'Sandra': 450, 'Luis': 800}
+meta = 1000
+
+bonus = []
+
+for item in vendedores_dic:
+    if vendedores_dic[item] > meta:
+        bonus.append(vendedores_dic[item] * 0.1)
+    else:
+        bonus.append(0)
+print(bonus)
+
+# Ao utilizar o if else antes do for, 
+bonus = [vendedores_dic[item] * 0.1 if vendedores_dic[item] > meta else 0 for item in vendedores_dic]
+print(bonus)
+
+# List comprehension para outras funções em iterable
+produtos = ['coca', 'pepsi', 'guarana', 'skol', 'brahma', 'agua', 'del valle', 'dolly', 'red bull', 'cachaça', 'vinho tinto', 'vodka', 'vinho branco', 'tequila', 'champagne', 'gin', 'guaracamp', 'matte', 'leite de castanha', 'leite', 'jurupinga', 'sprite', 'fanta']
+vendas = [1200, 300, 800, 1500, 1900, 2750, 400, 20, 23, 70, 90, 80, 1100, 999, 900, 880, 870, 50, 1111, 120, 300, 450, 800]
+top5 = ['agua', 'brahma', 'skol', 'coca', 'leite de castanha']
+
+total_top5 = sum(vendas[i] for i, produto in enumerate(produtos) if produto in top5)
+print(total_top5)
+print('Top 5 representou {:0.1%} das vendas'.format(total_top5/sum(vendas)))
