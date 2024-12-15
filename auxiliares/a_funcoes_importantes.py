@@ -1,5 +1,18 @@
 # Para mais informações, w3schools é muito boa para Python
 
+# importante:
+# \n - pula linha
+# \t - tab
+# \r - vai para o início da mesma linha e sobrescreve (somente sobrescreve a mesma qtd de dígitos)
+import time
+print('teste 10', end='\r')
+time.sleep(1)
+print('teste 2')
+time.sleep(1)
+print('teste 10', end=' \r')
+time.sleep(1)
+print('teste 2', end=' \r')
+time.sleep(1)
 
 #------Laço for
 for i in range(0,4,1):
@@ -712,3 +725,67 @@ top5 = ['agua', 'brahma', 'skol', 'coca', 'leite de castanha']
 total_top5 = sum(vendas[i] for i, produto in enumerate(produtos) if produto in top5)
 print(total_top5)
 print('Top 5 representou {:0.1%} das vendas'.format(total_top5/sum(vendas)))
+
+# ----------- MÓDULO TIME
+import time
+# Aguarda 5 segundos para continuar
+time.sleep(5)
+
+# Marco Zero: EPOCH (01 de janeiro de 1970 às 00:00:00)
+# time() retorna quantos segundos se passaram desde a EPOCH
+segundos_hoje = time.time()
+print(segundos_hoje)
+
+# ctime() retorna a data em string
+data_hoje = time.ctime()
+print(data_hoje)
+
+# gmtime retorna no padrão utc 0 - Greenwich
+# localtime retorna o horário do computador
+hora_geral = time.gmtime()
+hora_local = time.localtime()
+print(hora_geral)
+print(hora_local)
+
+# pegar o dia, mês e ano
+dia = hora_local.tm_mday
+mes = hora_local.tm_mon
+ano = hora_local.tm_year
+dia_da_semana = hora_local.tm_wday
+
+print("Data: {}/{}/{}".format(dia, mes, ano))
+print(f"Data: {dia}/{mes}/{ano}")
+
+# IMPORTANTE:LOCALE
+# No início de cada código, é importante colocar a instrução:
+# Necessário configurar somente uma vez no código
+import locale
+# O código abaixo é usado para padronizar tudo para pt_BR e UTF-8.
+locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
+
+# Padrozinar utilização de datas em python:
+# Utiliza-se a função strptime(string_tempo, formato)
+string_tempo = "30 Junho, 2023"
+formato = "%d %B, %Y"
+tempo_em_struct = time.strptime(string_tempo, formato)
+print(f"Tempo em struct: {tempo_em_struct}")
+
+# time.maketime()
+# Utilizada para fazer comparações - lib time exige que os tempos sejam passados para segundos
+tempo_em_struct = time.localtime()
+tempo_em_segundos = time.mktime(tempo_em_struct)
+print(f"Tempo em segundos: {tempo_em_segundos}")
+print(f"Tempo em segundos: {time.time()}")
+
+# maketime() utilizando uma tupla:
+# Formato da saída de time.struct:
+# time.struct_time(tm_year=2023, tm_mon=6, tm_mday=29, tm_hour=10, tm_min=20, tm_sec=0, tm_wday=3, tm_yday=180, tm_isdst=0)
+tempo_ano_novo = time.mktime((2023, 1, 1, 0, 0, 0, 0, 0, 0))
+
+# Contagem regressiva:
+import time
+# Necessário utilizar o ' \r' com espaço na frente, pois sobrescreve a mesma quantidade de dígitos
+for i in range(10, 0, -1):
+    print(i, end=" \r")
+    time.sleep(1)
+print("O evento começou!") 
