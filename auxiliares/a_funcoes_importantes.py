@@ -319,12 +319,15 @@ faturamento = sum(vendas_ano)
 # QUOCIENTE - dado por //
 # RESTO - dado por %
 for i in range(3,45,3):
-    if i//3 == 8:
+    if i // 3 == 8:
         break
     elif i % 2 == 0:
         continue
     else:
         print(f'{i} é impar')
+
+# Função divmod também faz a mesma função - retorna uma tupla com (quociente, resto)
+print(divmod(7,3))
 
 # Condição de limite inferior e superior
 nota = float(input('Informe uma nota entre 0 e 10: '))
@@ -789,3 +792,39 @@ for i in range(10, 0, -1):
     print(i, end=" \r")
     time.sleep(1)
 print("O evento começou!") 
+
+# -------- DATETIME
+from datetime import datetime
+
+# Data e hora
+agora = datetime.now()
+print(f"Agora: {agora}")
+
+# Apenas data
+print(f"Data: {agora.date()}")
+# Apenas hora
+print(f"Horário: {agora.time()}")
+# Pegar cada parte da data
+print(f"Ano: {agora.year}")
+print(f"Mês: {agora.month}")
+print(f"Dia: {agora.day}")
+print(f"Hora: {agora.hour}")
+print(f"Minuto: {agora.minute}")
+print(f"Segundo: {agora.second}")
+
+# Datetimedelta() - adição e subtração de datas
+from datetime import datetime, timedelta
+
+data_atual = datetime.now()
+print(f"Data atual: {data_atual}")
+
+data_futura = data_atual + timedelta(days=10)
+print(f"Data 10 dias no futuro: {data_futura}")
+
+data_passada = data_atual - timedelta(days=10)
+print(f"Data 10 dias no passado: {data_passada}")
+
+# Muito importante padronizar as datasem formato datetime ou timestruc
+string_data = "30 Junho, 2023, 15:30:20"
+formato = "%d %B, %Y, %H:%M:%S"
+data = datetime.strptime(string_data, formato)
