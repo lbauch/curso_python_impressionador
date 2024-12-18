@@ -358,6 +358,10 @@ if 'copo' in vendas_tecnologia:
 else:
     print('copo não está na lista de produtos de tecnologia')
 
+# Imprime de forma para melhor visualizar
+import pprint
+pprint.pprint(vendas_tecnologia)
+
 # Verifica se é encontrado algum valor com o dado
 if vendas_tecnologia.get('copo') == None:
     print('Copo não está dentro da lista de produtos de tecnologia')
@@ -805,6 +809,7 @@ print(f"Data: {agora.date()}")
 # Apenas hora
 print(f"Horário: {agora.time()}")
 # Pegar cada parte da data
+# Ano, Dia, Mês, Hora, Minuto, Segundo
 print(f"Ano: {agora.year}")
 print(f"Mês: {agora.month}")
 print(f"Dia: {agora.day}")
@@ -828,3 +833,41 @@ print(f"Data 10 dias no passado: {data_passada}")
 string_data = "30 Junho, 2023, 15:30:20"
 formato = "%d %B, %Y, %H:%M:%S"
 data = datetime.strptime(string_data, formato)
+
+
+# ---------- MÓDULOS
+# Módulos importantes:
+# Time - utilização de tempo
+# Datetime - mais completo que time
+# Numpy (np) - gera números aleatórios - np.random
+# matplotlib.pyplot - gera gráficos
+
+# pyplot
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+vendas = np.random.randint(1000, 3000, 50)
+meses = np.arange(1, 51)
+# Cria o gráfico
+plt.plot(meses, vendas)
+# Cria em pontos esparsos
+plt.plot(meses, vendas, 'ro')
+# x min, x max, y min, y max
+plt.axis([0, 50, 0, max(vendas)+200])
+# Adiciona nome ao eixo x
+plt.xlabel('Meses')
+# Adiciona nome ao eixo y
+plt.ylabel('Vendas')
+plt.show()
+
+plt.scatter(meses, vendas)
+plt.show()
+plt.figure(1, figsize=(15, 3))
+plt.subplot(1, 3, 1)
+plt.plot(meses, vendas, color='red')
+plt.subplot(1, 3, 2)
+plt.scatter(meses, vendas)
+plt.subplot(1, 3, 3)
+plt.bar(meses, vendas)
+plt.show()
