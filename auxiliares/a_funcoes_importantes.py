@@ -97,6 +97,9 @@ print(s_novo)
 s_novo = s1.split('o')
 print(s_novo)
 
+# .join - junta várias strings com o valor passado antes do .
+s_novo = "-".join(s_novo)
+
 # Funções importantes de strings
 # - capitalize() -> Coloca a 1ª letra Maiúscula
 # - casefold() -> Transforma todas as letras em minúsculas (existe lower() mas o casefold é melhor normalmente)
@@ -152,6 +155,7 @@ print(lucro_texto)
 print('1' + '2')
 print(1 + 2)
 
+
 # ------Listas
 produtos = ['tv', 'celular', 'tablet', 'mouse', 'teclado', 'geladeira', 'forno']
 # Iterador
@@ -190,6 +194,27 @@ vendas = [  1000,    1500  ,   350  ,    270   ,    900  ]
 tamanho = len(produtos)
 mais_vendido = max(vendas)
 menos_vendido = min(vendas)
+
+# Sort e sorted
+vendas = [  1000,    1500  ,   350  ,    270   ,    900  ]
+# .sort() altera a lista original
+vendas.sort()
+
+# sorted(variável) retorna um novo valor - pode ser atribuído a outra variável
+vendas1 = sorted(vendas)
+
+# Ordenar por outros itens que não sejam o primeiro em tuplas
+# Cria-se uma function e permite que esta function seja utilizada para cada item dentro de um iterable
+def segundo_item(tupla):
+    return tupla[1]
+
+vendas_produtos = {'vinho': 100, 'cafeiteira': 150, 'microondas': 300, 'iphone': 5500}
+# IMPORTANTE - A função list aplicada ao dicionário retorna várias tuplas.
+lista_vendas = list(vendas_produtos.items())
+print(lista_vendas)
+# A função sort automaticamente passa a tupla recebida como parâmetro
+lista_vendas.sort(key=segundo_item, reverse=True)
+print(dict(lista_vendas))
 
 i = vendas.index(mais_vendido)
 prod_mais_vendido = produtos[i]
@@ -386,6 +411,14 @@ vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
 for mes, qtd in vendas_mes.items():
     print('{}: {} unidades'.format(produto, qtd))
 print(list(vendas_mes.items()))
+
+# dict.items() - retorna tuplas com (chave,valor)
+# dict.keys() - retorna todas as chaves
+# dict.values() - retorna todos os valores
+vendas_mes = {'jan': 150, 'fev': 100, 'mar': 190}
+print(list(vendas_mes.keys()))
+print(list(vendas_mes.items()))
+print(list(vendas_mes.values()))
 
 # Percorrendo o dicionário
 bonus = []
@@ -871,3 +904,90 @@ plt.scatter(meses, vendas)
 plt.subplot(1, 3, 3)
 plt.bar(meses, vendas)
 plt.show()
+
+
+# String
+import string
+
+# https://docs.python.org/pt-br/3/library/string.html
+
+# Caracteres especiais
+print(string.punctuation)
+print(string.digits)
+print(string.ascii_letters)
+print(string.ascii_lowercase)
+maiusculas = string.ascii_uppercase
+print(maiusculas)
+
+# maketrans() retorna os valores da tabela ascii. Devolve um dicionário contendo o {carac_original : carac_novo}
+letras = 'aeiou'
+numeros = '12345'
+remove = 'a'
+tratamento = str.maketrans(letras, numeros)
+# O terceiro parâmetro é oque se deseja remover.
+tratamento = str.maketrans(letras, numeros, remove)
+# Para voltar para string, é necessário utilizar o translate
+print(letras.translate(tratamento))
+
+# COUNTER
+from collections import Counter
+
+print(Counter(['a', 'b', 'c', 'a', 'b', 'a']))
+print(Counter(["abcaba"]))
+# As duas geram o mesmo resultado
+
+# RANDOM
+import random
+import string
+
+# Necessário utilizar o choice ou choices
+for i in range(10):
+    print(random.choice(string.ascii_letters))
+
+# Para o choices, é possível escolher um ou mais parâmetros, indicado por k= Padrão é 1 
+print(random.choices(string.ascii_letters))
+print(random.choices(string.ascii_letters, k=3))
+
+escolhas = random.choices(string.ascii_letters, k=5)
+# Shuffle embaralha os elementos dentro do resultado
+random.shuffle(escolhas)
+
+
+# QR CODOE
+# pip install qrcode
+# pip install Pillow
+
+# Pillow é necessário para lidar com imagens
+import qrcode
+from qrcode.image.styledpil import StyledPilImage
+
+# QR Code simples
+imagem = qrcode.make("https://www.youtube.com/@HashtagProgramacao")
+imagem.save("qrcode.png")
+
+# Aumenta a quantidade de pontos de leitura
+qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)  # Utilizado para poder adicionar uma imagem
+qr.add_data("https://www.youtube.com/@HashtagProgramacao")
+
+imagem = qr.make_image(
+    image_factory=StyledPilImage,
+    embeded_image_path="logo.png",
+)
+
+imagem.save("qrcode_logo.png")
+
+
+# -------- FUNCTIONS EM ITERABLES
+def padronizar_texto(texto):
+    texto = texto.casefold()
+    texto = texto.replace("  ", " ")
+    texto = texto.strip()
+    return texto
+
+# MAP 
+produtos = [' ABC12 ', 'abc34', 'AbC37', 'beb12', ' BSA151', 'BEB23']
+# Necessário utilizar o list, pois o map retorna um objeto em map
+produtos = list(map(padronizar_texto, produtos))
+print(produtos)
+produtos = ' '.join(produtos)
+print(produtos)
