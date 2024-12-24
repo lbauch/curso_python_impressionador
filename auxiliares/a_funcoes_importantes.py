@@ -876,6 +876,7 @@ data = datetime.strptime(string_data, formato)
 # matplotlib.pyplot - gera gráficos
 
 # pyplot
+# pip install matplotlib
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -991,3 +992,41 @@ produtos = list(map(padronizar_texto, produtos))
 print(produtos)
 produtos = ' '.join(produtos)
 print(produtos)
+
+
+# --------- NUMPY
+# pip install numpy
+import numpy as np
+# Padroniza listas - mais eficiente na tratativa dos dados
+array = np.array([1, 2, 3, 4, 5])
+print(array)
+array = np.array([False, "2", 3.0, 4, 5])
+print(array)
+array = np.array([False, 2, 3.1, 4, 5])
+print(array)
+array = np.array([False, 2, 3, 4, 5])
+print(array)
+# Funciona da mesma forma que um array quanto a buscar os elementos
+print(array[0:-1:2])
+print(array[::-1])
+
+
+vendas = np.array([200, 220, 250, 210, 300, 280, 230])
+precos = np.array([20, 25, 30, 35, 40])
+
+# Obter a média - np.mean()
+media_vendas = np.mean(vendas)
+# Obter o maior e menor valor - np.max(), np.min()
+produto_mais_caro = np.max(precos)
+produto_mais_barato = np.min(precos)
+
+# Ordenar
+vendas_ordenadas = np.sort(vendas)
+
+# np.dot()
+quantidades = np.array([10, 20, 30, 40])
+precos = np.array([5, 10, 15, 20])
+print(quantidades * precos)
+print(np.sum(quantidades * precos))
+# np.dot() automaticamente faz a conta da soma total
+total_vendas = np.dot(quantidades, precos)
