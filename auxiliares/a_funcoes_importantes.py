@@ -1030,3 +1030,43 @@ print(quantidades * precos)
 print(np.sum(quantidades * precos))
 # np.dot() automaticamente faz a conta da soma total
 total_vendas = np.dot(quantidades, precos)
+
+# Gerador de números aleatórios
+# Por padrão, gera números entre 0 e 1.
+# rgn é o nome da variável padrão utilizado
+rng = np.random.default_rng()
+numero_aleatorio = rng.random()
+# Gerar um array de n elementos aleatórios
+array_aleatório = rng.random(3) * 100
+
+# Array aleatório de inteiros com 30 valores, sendo o mínimo de 50 e máximo de 200.
+dados_vendas = rng.integers(low = 50, high = 200, size = 30)
+
+# Caso se queira gerar valores aleatórios e mantê-los fixos, utiliza-se a seguinte variável:
+# Independentemente de quantas vezes for executado, o array resultante será sempre o mesmo.
+# O valor do parâmetro seed pode ser qualquer número inteiro
+rng = np.random.default_rng(seed = 0)
+dados_vendas = rng.integers(low = 50, high = 200, size = 30)
+
+# ESTATÍSTICA COM NUMPY
+# Obter o índice (começando em 0) do maior valor:
+print(np.argmax(dados_vendas))
+# Para melhorar a visualização:
+print(np.argmax(dados_vendas) + 1)
+
+# Obter o índice do menor valor:
+np.argmin(dados_vendas) + 1
+
+# Obter a mediana
+print(np.median(dados_vendas))
+
+# Divide os dados, conforme percential indicado - Por exemplo: 30% dos dados em um array, 70% em outro
+# Caso seja 50, será igual à mediana
+print(np.percentile(dados_vendas, 30))
+
+# Obter o desvio padrão - std
+print(np.std(dados_vendas))
+
+# Obter a variância
+print(np.std(dados_vendas))
+
