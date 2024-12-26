@@ -1208,3 +1208,36 @@ print(vendas_reshaped[0][1])
 print(vendas_reshaped.sum(axis=0))
 # Somar cada linha e retornar uma única linha com os valores:
 print(vendas_reshaped.sum(axis=1))
+
+
+# ----------- PANDAS
+# pip install pandas
+import pandas as pd
+
+# Ler um .csv, definindo o separador como ;
+vendas_df = pd.read_csv(r'../../auxiliares/Contoso - Vendas - 2017.csv', sep=';')
+
+# Dataframes
+"""
+Casos de uso:
+
+Temos um dataframe chamado vendas_df
+
+vendas_df['coluna_x'] -> uma lista com os valores da coluna_x (em formato dataframe, é um dataframe com 1 coluna só)
+vendas_df[0] -> NÃO FUNCIONA ASSIM PARA DATAFRAMES
+vendas_df[:3] -> pega até a linha de índice 3 do dataframe
+vendas_df[['coluna_x', 'coluna_y', 'coluna_z']] -> cria um novo dataframe com as colunas coluna_x, coluna_y e coluna_z
+vendas_df['coluna_x'][0] -> pega o itemd a 1ª linha da coluna coluna_x
+
+OBS: Funciona como um dicionário. Passa-se entre colchetes o nome da coluna desejada
+"""
+
+# IMPORTANTE - Antes de utilizar um dataframe e salvá-lo em csv, utiliza-se o .info
+# Com isto, é possível obter as informações das colunas de dados
+vendas_df.info()
+
+# Imprimir itens específicos de colunas específicas
+lista_clientes = vendas_df['ID Cliente'][:10]
+
+# Passar várias colunas:
+lista_clientes = vendas_df[['ID Cliente', 'Número da Venda', 'Data da Venda']]
