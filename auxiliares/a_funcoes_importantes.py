@@ -14,6 +14,16 @@ time.sleep(1)
 print('teste 2', end=' \r')
 time.sleep(1)
 
+# Conversões entre variáveis de tipos diferentes:
+print(True == 1)
+print(True == 2)
+print(False == 0)
+print(False == 2)
+print(1.0 == 1)
+print(True == 'a')
+print(False == '')
+print(False == ' ')
+
 #------Laço for
 for i in range(0,4,1):
     print(i)
@@ -994,7 +1004,7 @@ produtos = ' '.join(produtos)
 print(produtos)
 
 
-# --------- NUMPY
+# --------- MÓDULO NUMPY
 # pip install numpy
 import numpy as np
 # Padroniza listas - mais eficiente na tratativa dos dados
@@ -1070,3 +1080,131 @@ print(np.std(dados_vendas))
 # Obter a variância
 print(np.std(dados_vendas))
 
+# Filtros e função WHERE
+salarios = np.array([3000, 3500, 4000, 2000, 4500, 4000, 5000])
+media_salarial = np.mean(salarios)
+# Retorna um array com os índices que obedecem à condição
+funcionarios_acima_media = np.where(salarios > media_salarial)
+
+# ARRAY COM ARRAY DE ÍNDICES:
+print(salarios[funcionarios_acima_media])
+
+# forma simplificada - funciona para funções simples
+# Não há necessidade do np.where()
+print(salarios[salarios > media_salarial])
+
+# Utilizando o np.where() para atribuir valores condicionais:
+# Similar ao SE do Excel
+print(np.where(salarios > media_salarial, 'acima da média', 'abaixo da média'))
+
+# Atribuindo valores condicionais com operações algébricas:
+salarios_bonus = np.where(salarios < media_salarial, salarios * 1.1, salarios)
+print(salarios)
+
+# Where com mais de uma condição
+# E
+salarios_bonus = np.where((salarios > 3000) & (salarios <= 4500))
+print(salarios)
+
+# OU
+salarios_bonus = np.where((salarios > 3000) & (salarios <= 4500), salarios*1.1)
+print(salarios)
+
+# Utilizar desta forma, resulta em um array com cada valor
+print(salarios > media_salarial)
+# Imprime o total de valores que obedecem à condição especificada
+print(np.sum(salarios > media_salarial))
+
+# Contar não vazios - valores maiores que 0
+print(np.count_nonzero(salarios > media_salarial))
+
+# Mostrar valores únicos:
+# Neste caso, indica que há valores False e valores True.
+print(np.unique(salarios > media_salarial))
+# Para mostrar quantos valores há de cada valor encontrado, utiliza-se da seguinte forma:
+print(np.unique(salarios > media_salarial, return_counts=True))
+
+# O trcho de código acima retorna uma tupla, a qual é possível separar
+valores_unicos, contagem = np.unique(salarios > media_salarial, return_counts=True)
+print(valores_unicos)
+print(contagem)
+
+# Por padrão, a geração aleatória não inclui o maior valor informado.
+# Para garantir que seja incluso, é necessário informar o parâmetro endpoint = True
+salarios_gerados = rng.integers(low=np.min(salarios), high=np.max(salarios), size=20, endpoint=True)
+
+# Também é possível gerar matrizes com valores aleatórios
+salarios_gerados = rng.integers(low= np.min(salarios), high= np.max(salarios), size = (5,6), endpoint=True)
+
+# É possível simplificar e utilizar o max, min, mean, entre outros da seguinte forma:
+print(salarios_gerados.mean())
+print(salarios_gerados.max())
+
+
+# Negação de uma condição:
+tempos_ciclo = np.array([5.5, 5.7, 5.9, 6.0, 5.8, 5.6, 5.7, 7.2, 4.8])
+media = np.mean(tempos_ciclo)
+desvio_padrao = np.std(tempos_ciclo)
+condicao = ((tempos_ciclo > media + 2 * desvio_padrao) | (tempos_ciclo < media - 2 * desvio_padrao))
+print(condicao)
+# Negação em Numpy - utiliza-se o til
+print(np.where(~condicao))
+
+# Geração de distribuição normal - formato de dados que parece uma montanha, utilizando média e desvio padrão
+tempos_ciclo = np.array([5.5, 5.7, 5.9, 6.0, 5.8, 5.6, 5.7, 7.2, 4.8])
+rng = np.random.default_rng(seed=0)
+media = np.mean(tempos_ciclo)
+desvio_padrao = np.std(tempos_ciclo)
+# Criação dos valores
+# Loc = média, scale = desvio padrão, size = qtd de nr desejada
+tempos_gerados = rng.normal(loc=media, scale=desvio_padrao, size=100)
+
+# Condição
+condicao = ((tempos_gerados > tempos_gerados.mean() + 2 * tempos_gerados.std()) | (tempos_gerados < tempos_gerados.mean() - 2 * tempos_gerados.std()))
+# Negação em Numpy
+print(np.where(~condicao))
+
+# Alterando um array do numpy
+vendas = np.array([200, 220, 250, 210, 300, 280, 230, 210, 220, 240, 230, 210, 280, 220])
+
+# Reorganizar os dados em uma matriz de 2x7
+# É obrigatório os dados possuírem a mesma quantidade total de valores
+# Caso contrário, resulta em erro.
+vendas_reshaped = np.reshape(vendas, (2, 7))
+print(vendas_reshaped)
+
+# É possível reorganizar em diversas dimensões, conforme necessário:
+vendas = np.array([250, 210, 300, 280, 230, 210, 220, 240, 230, 210, 280, 220])
+vendas_reshaped = np.reshape(vendas, (2, 2, 3))
+print(vendas_reshaped)
+
+
+vendas_reshaped = np.reshape(vendas, (2, 7))
+print(vendas_reshaped)
+
+# O reshape pode ser utilizado passando somente um dos parâmetros:
+# Defino que quero n linhas e o numpy calcula a qtd de colunas
+vendas_reshaped = np.reshape(vendas, (2, -1))
+# Ou
+# Defino que quero m colunas e o numpy calcula a qtd de linhas
+vendas_reshaped = np.reshape(vendas, (-1, 7))
+# Mostrar as dimensões da matriz ou array informado
+# Utiliza-se o .ndim
+print(vendas.ndim)
+print(vendas_reshaped.ndim)
+
+# Mostrar a forma da matriz - quantas linhas e colunas há na matriz
+print(vendas.shape)
+print(vendas_reshaped.shape)
+
+# Imprimir valores dos arrays reshaped:
+# Imprimir uma linha inteira
+print(vendas_reshaped[0]) 
+# Imprimir itens específicos
+print(vendas_reshaped[0][1]) 
+
+# Todos os cálculos feitos até agora aceitam o parâmetro do eixo.
+# Somar cada coluna e retornar uma única linha com os valores:
+print(vendas_reshaped.sum(axis=0))
+# Somar cada linha e retornar uma única linha com os valores:
+print(vendas_reshaped.sum(axis=1))
