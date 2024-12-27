@@ -1217,7 +1217,7 @@ import pandas as pd
 
 #encoding='latin1', encoding='ISO-8859-1', encoding='utf-8' ou então encoding='cp1252'
 # Ler um .csv, definindo o separador como ;
-vendas_df = pd.read_csv(r'../../auxiliares/Contoso - Vendas - 2017.csv', sep=';', encoding='ISO-8859-1')
+vendas_df = pd.read_csv(r'../../auxiliares/arquivos_base/Contoso - Vendas - 2017.csv', sep=';', encoding='ISO-8859-1')
 # vendas_df = pd.read_csv(r'../../auxiliares/Contoso - Vendas - 2017.csv')
 
 # Dataframes
@@ -1278,3 +1278,92 @@ frequencia_clientes[:5].plot(figsize=(15, 5))
 # Definir valores máximo e mínimo do eixo y:
 # Para o caso abaixo, usa-se: (min, max, range de valores)
 frequencia_clientes[:5].plot(figsize=(15, 5), yticks= range(0, 100, 5))
+
+# Agrupar valores dos dados - groupby
+# Pode-se utilizar .min, .max, ...
+# Quando há colunas que possuem dados diferentes entre si, estes dados serão automaticamente removidas do df. 
+# .sum mostrará a soma agrupada por nome.
+# .min mostrará o menor valor de cada nome
+vendas_lojas = vendas_df.groupby('Nome da Loja').sum()
+
+# Ordenar os valores com base no valor de uma coluna específica
+vendas_lojas = vendas_lojas.sort_values('Quantidade Vendida')
+# Ordenar em ordem decrescente:
+vendas_lojas = vendas_lojas.sort_values('Quantidade Vendida', ascending= False)
+# Faz a plotagem e define o tipo e tamanho da figura
+vendas_lojas[:5].plot(figsize=(15, 5), kind='bar')
+
+# Pegar o maior valor
+maior_valor = vendas_lojas['Quantidade Vendida'].max()
+# Pegar o id do maior valor
+melhor_loja = vendas_lojas['Quantidade Vendida'].idxmax()
+
+# Pegar o menor valor
+maior_valor = vendas_lojas['Quantidade Vendida'].min()
+# Pegar o id do maior valor
+melhor_loja = vendas_lojas['Quantidade Vendida'].idxmin()
+
+
+vendas_df = pd.read_csv(r'../../auxiliares/arquivos_base/Contoso - Vendas - 2017.csv', sep=';', encoding='ISO-8859-1')
+
+# Filtrando dados em um df:
+vendas_lojacontosoeuropeonline = vendas_df[vendas_df['ID Loja'] == 306]
+# Utilizando mais de uma condição:
+# É necessário colocar entre parênteses para fazer as comparações individualmente
+df_loja306semdev = vendas_df[(vendas_df['ID Loja'] == 306) & (vendas_df['Quantidade Devolvida'] == 0)]
+display(df_loja306semdev)
+
+# Outra forma de fazer:
+loja306 = vendas_df['ID Loja'] == 306
+qtde_devolvida_0 = vendas_df['Quantidade Devolvida'] == 0
+df2_loja306semdev = vendas_df[loja306 & qtde_devolvida_0]
+display(df2_loja306semdev)
+
+# Formatar para datetime
+vendas_df['Data da Venda'] = pd.to_datetime(vendas_df['Data da Venda'], format='%d/%m/%Y')
+# Inserir linhas
+vendas_df['Ano da Venda'] = vendas_df['Data da Venda'].dt.year
+
+# Exibir os 5 primeiros itens:
+novo_produtos_df = pd.read_csv(r'Contoso - Cadastro Produtos.csv', sep=';')
+display(novo_produtos_df.head())
+
+# Exibir os últimos 5 valores
+display(novo_produtos_df.tail())
+
+# Função loc
+# Pega um item específico do df
+# Utiliza os itens passados.
+print(novo_produtos_df.loc[1])
+# Neste caso, pega o item com índice 1
+print(novo_produtos_df.loc[[1, 2, 10]])
+# Imprime os itens de índice 1, 2 e 10
+# Caso não se queira utilizar o loc, pode-se pegar todos os itens até o índice desejado:
+print(novo_produtos_df[:5])
+
+# Definir o índice da tabela como uma coluna específica 
+novo_produtos_df = novo_produtos_df.set_index('Nome do Produto')
+# Pegar um valor específico, passando o índice e coluna desejados
+# loc - utiliza nome da linha e nome da coluna para obter o dado
+print(novo_produtos_df.loc['Contoso Optical Wheel OEM PS/2 Mouse E60 Black', 'Preco Unitario'])
+
+# iloc - utiliza números inteiros para índice de linha e coluna
+print(novo_produtos_df.iloc[1, 2])
+
+# Atribuir um valor utilizando o loc:
+novo_produtos_df.loc['Contoso Optical Wheel OEM PS/2 Mouse E60 Black', 'Preco Unitario'] = 23
+# É possível utilizar através de filtro também: 
+novo_produtos_df.loc[novo_produtos_df['ID Produto'] == 873, 'Preco Unitario'] = 23
+
+# Salvar em .csv
+vendas_df.to_csv('Novo Vendas.csv', sep=',')
+
+# Salvar em .csv de um dicionário:
+vendas_produtos = {'iphone': [558147, 951642], 'galaxy': [712350, 244295], 'ipad': [573823, 26964], 'tv': [405252, 787604], 'máquina de café': [718654, 867660], 'kindle': [531580, 78830], 'geladeira': [973139, 710331], 'adega': [892292, 646016], 'notebook dell': [422760, 694913], 'notebook hp': [154753, 539704], 'notebook asus': [887061, 324831], 'microsoft surface': [438508, 667179], 'webcam': [237467, 295633], 'caixa de som': [489705, 725316], 'microfone': [328311, 644622], 'câmera canon': [591120, 994303]}
+# Por padrão, interpreta cada índice como uma coluna.
+# Ao utilizar o orient = 'index', coloca as chaves como linhas
+vendas_produtos_df = pd.DataFrame.from_dict(vendas_produtos, orient='index')
+# Renomear as colunas conforme índices
+vendas_produtos_df = vendas_produtos_df.rename(columns={0: 'Vendas 2019', 1: 'Vendas 2020'})
+# transformar para .csv
+vendas_produtos_df.to_csv(r'Novo Vendas Produtos.csv', sep=',', encoding='latin1')
