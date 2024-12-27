@@ -1213,9 +1213,12 @@ print(vendas_reshaped.sum(axis=1))
 # ----------- PANDAS
 # pip install pandas
 import pandas as pd
+# Para mais informações: pandas.pydata.org
 
+#encoding='latin1', encoding='ISO-8859-1', encoding='utf-8' ou então encoding='cp1252'
 # Ler um .csv, definindo o separador como ;
-vendas_df = pd.read_csv(r'../../auxiliares/Contoso - Vendas - 2017.csv', sep=';')
+vendas_df = pd.read_csv(r'../../auxiliares/Contoso - Vendas - 2017.csv', sep=';', encoding='ISO-8859-1')
+# vendas_df = pd.read_csv(r'../../auxiliares/Contoso - Vendas - 2017.csv')
 
 # Dataframes
 """
@@ -1240,4 +1243,38 @@ vendas_df.info()
 lista_clientes = vendas_df['ID Cliente'][:10]
 
 # Passar várias colunas:
-lista_clientes = vendas_df[['ID Cliente', 'Número da Venda', 'Data da Venda']]
+# Seleciona as colunas que serão escritas/utilizadas
+lista_clientes = vendas_df[['ID Cliente', 'Numero da Venda', 'Data da Venda']]
+
+# Retirar colunas
+# Irá imprimir somente a coluna Data da Venda
+lista_clientes = lista_clientes.drop(['Data da Venda', 'Numero da Venda'], axis= 1)
+
+# Utilizando display - melhor visualização - podem ser mostrados mais itens simultaneamente
+# !pip install ipython
+from IPython.display import display
+display(vendas_df)
+
+# Juntar dataframes - merge
+# novo_dataframe = dataframe1.merge(dataframe2, on='coluna')
+novo_dataframe = lista_clientes.merge(vendas_df, on='ID Cliente')
+display(novo_dataframe)
+
+# Renomear colunas - rename
+# Dic com 'nome antigo' : 'nome novo'
+vendas_df = vendas_df.rename(columns={'E-mail': 'E-mail do Cliente'})
+
+# Exibir a qtd de vezes que determinado valor aparece - .value_counts()
+# Necessário passar tabela['Coluna Desejada'].value_counts()
+frequencia_clientes = vendas_df['E-mail do Cliente'].value_counts()
+
+# Plotar em gráfico com pandas:
+# Escolher os n primeiros clientes - utiliza [:n]
+frequencia_clientes[:5].plot()
+
+# Definir a altura e largura - figsize passando uma tupla com 2 valores
+frequencia_clientes[:5].plot(figsize=(15, 5))
+
+# Definir valores máximo e mínimo do eixo y:
+# Para o caso abaixo, usa-se: (min, max, range de valores)
+frequencia_clientes[:5].plot(figsize=(15, 5), yticks= range(0, 100, 5))
