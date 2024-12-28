@@ -1367,3 +1367,54 @@ vendas_produtos_df = pd.DataFrame.from_dict(vendas_produtos, orient='index')
 vendas_produtos_df = vendas_produtos_df.rename(columns={0: 'Vendas 2019', 1: 'Vendas 2020'})
 # transformar para .csv
 vendas_produtos_df.to_csv(r'Novo Vendas Produtos.csv', sep=',', encoding='latin1')
+
+# Exportar csv direto da internet com pandas
+# Caso o link gere um arquivo csv:
+# Obtem diretamente o df em .csv.
+import pandas as pd
+url = 'https://drive.google.com/uc?authuser=0&id=1Ru7s-x3YJuStZK1mqr_qNqiHVvdHUN66&export=download'
+cotacao_df = pd.read_csv(url)
+display(cotacao_df)
+
+# Caso não gere diretamente:
+# Armazenar a resposta em uma variável, através da biblioteca requests e método get(url).content
+# Utilizar o io.StringIO(conteudo_url.decode('latin1')) para decodificar
+import pandas as pd
+# !pip install requests
+import requests
+import io
+url = 'https://portalweb.cooxupe.com.br:9080/portal/precohistoricocafe_2.jsp?d-3496238-e=2&6578706f7274=1'
+conteudo_url = requests.get(url).content
+arquivo = io.StringIO(conteudo_url.decode('latin1'))
+# engine= python é utilizado para ser tratado com o python, removendo erros ou aviso
+cafe_df = pd.read_csv(arquivo, sep=r'\t', engine='python')
+display(cafe_df)
+
+# Integração com Excel
+import pandas as pd
+tabela = pd.read_excel(r"../../auxiliares/arquivos_base/Produtos.xlsx")
+display(tabela)
+
+# Salvar em Excel:
+# index= False - utilizado para remover a coluna de índice, que é criada por padrão em um df do pd
+tabela.to_excel(r"../../auxiliares/arquivos_gerados/Produtos_pandas.xlsx", index=False)
+
+
+# INTEGRAÇÃO COM EXCEL COM OPENPYXL
+# !pip install openpyxl
+from openpyxl import Workbook, load_workbook
+
+planilha = load_workbook(r"../../auxiliares/arquivos_base/Produtos.xlsx")
+# Utiliza a planilha ativa quando se abre o excel
+aba_ativa = planilha.active
+# Pegar célula específica
+aba_ativa['A1']
+# Pegar coluna específica:
+aba_ativa['C']
+# Percorrer as células de uma coluna:
+for celula in aba_ativa['C']:
+    if celula.value == 'serviço':
+        linha = celula.row
+        aba_ativa[f'D{linha}'] = 1.5
+
+planilha.save(r"../../auxiliares/arquivos_gerados/Produtos_openpyxl.xlsx") 
