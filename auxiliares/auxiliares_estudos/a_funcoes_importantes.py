@@ -579,7 +579,6 @@ def categoria_produto(bebida, cod_categoria):
     else:
         return False
 
-
 produtos = ['CAR46275','TFA23962','TFA64715','TFA69555','TFA56743','BSA45510',\
             'TFA44968','CAR75448','CAR23596','CAR13490','BEB21365','BEB31623',\
             'BSA62419','BEB73344','TFA20079','BEB80694','BSA11769','BEB19495',\
@@ -706,6 +705,20 @@ def minha_soma(arg1, arg2, *args1, arg3, arg4, **args2):
         print(value)
 # Atribui quantos parâmetros forem necessários.
 print(minha_soma(10, 5, 1, 10, arg3 = 90, arg4 =  3, arg5 = 9, arg6 = 8))
+
+
+# APPLY - permite aplicar uma função a um determinado conjunto de dados - Utilizado em df
+import pandas as pd
+conjunto = {'ano1' : 15000.07, 'ano2' : 18578.39, 'ano3' : 5656}
+dados = pd.DataFrame.from_dict(conjunto, orient='index', columns=['Valor'])
+
+def formatar_em_reais(valores_dados):
+    valor_formatado = f'R${valores_dados:_.2f}'.replace('.',',').replace('_','.')
+    return valor_formatado
+
+# Define em qual coluna se deseja aplicar a condição
+dados = dados['Valor'].apply(formatar_em_reais)
+print(dados)
 
 
 # ------LIST COMPREHENSION
@@ -1118,13 +1131,13 @@ print(np.sum(salarios > media_salarial))
 # Contar não vazios - valores maiores que 0
 print(np.count_nonzero(salarios > media_salarial))
 
-# Mostrar valores únicos:
+# Mostrar valores únicos - REMOVER DUPLICATAS
 # Neste caso, indica que há valores False e valores True.
 print(np.unique(salarios > media_salarial))
 # Para mostrar quantos valores há de cada valor encontrado, utiliza-se da seguinte forma:
 print(np.unique(salarios > media_salarial, return_counts=True))
 
-# O trcho de código acima retorna uma tupla, a qual é possível separar
+# O trecho de código acima retorna uma tupla, a qual é possível separar
 valores_unicos, contagem = np.unique(salarios > media_salarial, return_counts=True)
 print(valores_unicos)
 print(contagem)
@@ -1220,7 +1233,8 @@ import pandas as pd
 vendas_df = pd.read_csv(r'../../auxiliares/arquivos_base/Contoso - Vendas - 2017.csv', sep=';', encoding='ISO-8859-1')
 # vendas_df = pd.read_csv(r'../../auxiliares/Contoso - Vendas - 2017.csv')
 
-# Dataframes
+
+# ------- DATAFRAMES - Pandas
 """
 Casos de uso:
 
@@ -1258,6 +1272,8 @@ display(vendas_df)
 # Juntar dataframes - merge
 # novo_dataframe = dataframe1.merge(dataframe2, on='coluna')
 novo_dataframe = lista_clientes.merge(vendas_df, on='ID Cliente')
+# juntar colunas específicas:
+novo_dataframe = lista_clientes[['ID Cliente']].merge(vendas_df[['ID Cliente', 'ID Loja', 'Quantidade Vendida']], on='ID Cliente')
 display(novo_dataframe)
 
 # Renomear colunas - rename
@@ -1284,12 +1300,24 @@ frequencia_clientes[:5].plot(figsize=(15, 5), yticks= range(0, 100, 5))
 # Quando há colunas que possuem dados diferentes entre si, estes dados serão automaticamente removidas do df. 
 # .sum mostrará a soma agrupada por nome.
 # .min mostrará o menor valor de cada nome
+# Ao utilizar o groupby, por padrão, a coluna agrupada se torna o índice
 vendas_lojas = vendas_df.groupby('Nome da Loja').sum()
+# Por padrão, as_index= True
+# Para adicionar o índice, não considerando a coluna agrupada como índice, utiliza-se
+vendas_lojas = vendas_df.groupby('Nome da Loja', as_index= False).sum()
+# Ao fazer isso, não é mais possível passar o nome da coluna 'Nome da Loja' para ser visualizada como coluna
+# Ao invés disso, ela será automaticamente passada como índice
+
+# IMPORTANTE: Ao utilizar um .sum, . mean, ..., é boa prática passar somente os valores numéricos:
+# Por padrão, o numeric_only= False
+vendas_lojas = vendas_df.groupby('Nome da Loja', as_index= False).sum(numeric_only= True)
 
 # Ordenar os valores com base no valor de uma coluna específica
 vendas_lojas = vendas_lojas.sort_values('Quantidade Vendida')
 # Ordenar em ordem decrescente:
 vendas_lojas = vendas_lojas.sort_values('Quantidade Vendida', ascending= False)
+# Outra forma:
+vendas_lojas = vendas_lojas.sort_values(by= 'Quantidade Vendida', ascending= False)
 # Faz a plotagem e define o tipo e tamanho da figura
 vendas_lojas[:5].plot(figsize=(15, 5), kind='bar')
 
@@ -1386,8 +1414,9 @@ import io
 url = 'https://portalweb.cooxupe.com.br:9080/portal/precohistoricocafe_2.jsp?d-3496238-e=2&6578706f7274=1'
 conteudo_url = requests.get(url).content
 arquivo = io.StringIO(conteudo_url.decode('latin1'))
-# engine= python é utilizado para ser tratado com o python, removendo erros ou aviso
-cafe_df = pd.read_csv(arquivo, sep=r'\t', engine='python')
+# engine= python é utilizado para ser tratado com o python, removendo erros ou avisos
+# IMPORTANTE - decimal= - parâmetro que define qual o separador decimal padrão do arquivo lido
+cafe_df = pd.read_csv(arquivo, sep=r'\t', engine='python', decimal= ',')
 display(cafe_df)
 
 # Integração com Excel
@@ -1417,4 +1446,46 @@ for celula in aba_ativa['C']:
         linha = celula.row
         aba_ativa[f'D{linha}'] = 1.5
 
-planilha.save(r"../../auxiliares/arquivos_gerados/Produtos_openpyxl.xlsx") 
+# SALVAR ARQUIVO com Produtos_openpyxl
+planilha.save(r"../../auxiliares/arquivos_gerados/Produtos_openpyxl.xlsx")
+
+# BARRA DE PROGRESSO para acompanhar o processamento de dados
+# !pip install tqdm
+from tqdm import tqdm
+
+# O total indica quantos itens há no total, neste caso, os itens da coluna ID Loja
+# Position= 0 e leave= True - juntos combinam para que a barra de progresso seja sobrescrita.
+# Ou seja, não escreve mais de uma barra de progresso
+# pbar é o nome padrão utilizado para a variável de barra de progresso - progress bar
+pbar = tqdm(total=len(vendas_df['ID Loja']), position=0, leave=True)
+
+for i, id_loja in enumerate(vendas_df['ID Loja']):
+    # Atualiza a visualização da barra de progresso
+    pbar.update()
+    if id_loja == 222:
+        # vendas_df.loc[linha, coluna]
+        vendas_df.loc[i, 'Quantidade Devolvida'] += 1
+        
+display(vendas_df)
+
+# pegar um item específico através do índice
+vendas_df_primeiro = vendas_df.index[0]
+
+# Básico do df com pandas
+import pandas as pd
+df = pd.DataFrame(
+    {
+        "Name": [
+            "Braund, Mr. Owen Harris",
+            "Allen, Mr. William Henry",
+            "Bonnell, Miss. Elizabeth",
+        ],
+        "Age": [22, 35, 58],
+        "Sex": ["male", "male", "female"],
+})
+print(df["Age"])
+
+# Criando uma coluna com valores dados
+ages = pd.Series([22, 35, 58], name="Age")
+print(df["Age"].max())
+print(ages.max())
