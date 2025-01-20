@@ -1489,3 +1489,50 @@ print(df["Age"])
 ages = pd.Series([22, 35, 58], name="Age")
 print(df["Age"].max())
 print(ages.max())
+
+
+# ----- TRABALHANDO COM ARQUIVOS PDF
+
+# !pip install pypdf2
+# !pip install tabula-py
+# tabula-py é utilizado para criar e ler tabelas em .pdf
+import PyPDF2 as pyf
+from pathlib import Path
+
+nome = "../../1_auxiliares/arquivos_base/MGLU_ER_3T20_POR.pdf"
+# Permite a leitura do PDF:
+arquivo_pdf = pyf.PdfReader(nome)
+
+for i, pagina in enumerate(arquivo_pdf.pages):
+    num_pagina = i + 1
+    # Permite a escrita do PDF
+    novo_pdf = pyf.PdfWriter()
+    # Insere a página no escritor
+    novo_pdf.add_page(pagina)
+    # Salva o arquivo - wb = write binary
+    with Path(f"../01_auxiliares/paginas/Arquivo Pagina {num_pagina}.pdf").open(mode="wb") as arquivo:
+        novo_pdf.write(arquivo)
+
+# juntar várias páginas no pdf:
+num_paginas = [1, 14, 16]
+
+novo_arquivo = pyf.PdfWriter()
+for num in num_paginas:
+    pagina_pdf = pyf.PdfReader(f"paginas/Arquivo Pagina {num}.pdf")
+    novo_arquivo.add_page(pagina_pdf.pages[0])
+
+    
+with Path(f"Consolidado.pdf").open(mode="wb") as arquivo:
+    novo_arquivo.write(arquivo)
+
+
+# Mesclar arquivos
+pdf_mesclado = pyf.PdfMerger()
+
+pdf_mesclado.append("MGLU_ER_3T20_POR.pdf")
+pdf_mesclado.append("MGLU_ER_4T20_POR.pdf")
+
+with Path(f"Mesclado.pdf").open(mode="wb") as arquivo:
+    pdf_mesclado.write(arquivo)
+
+# Demais funcionalidades olhar integração com pdf
