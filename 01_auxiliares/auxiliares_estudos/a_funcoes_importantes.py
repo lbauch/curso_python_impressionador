@@ -1536,3 +1536,16 @@ with Path(f"Mesclado.pdf").open(mode="wb") as arquivo:
     pdf_mesclado.write(arquivo)
 
 # Demais funcionalidades olhar integração com pdf
+
+
+# ------- Salvando e lendo dicionário em formato json:
+import json
+def salvar_compras(compras, nome_arquivo):
+    with open(nome_arquivo, "w") as arquivo:
+        # dump salva o arquivo do dicionário como um json
+        json.dump(compras, arquivo)
+
+def carregar_compras(nome_arquivo):
+    with open(nome_arquivo, "r") as arquivo:
+        # carrega o arquivo json existente
+        return json.load(arquivo)
