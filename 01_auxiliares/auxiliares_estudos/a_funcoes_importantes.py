@@ -1549,3 +1549,12 @@ def carregar_compras(nome_arquivo):
     with open(nome_arquivo, "r") as arquivo:
         # carrega o arquivo json existente
         return json.load(arquivo)
+    
+
+
+#-------- INTEGRAÇÃO COM EMAIL
+# 3 Principais tipos:
+# SMTP - Demanda diversas configurações 
+# Outlook - conta conectada ao computador
+# Para envio de email em massa, é necessário utilizar os softwares abaixo, para não cair em span ou ser bloqueado automaticamente
+# Serviços Terceirizados e APIS (Twillio/Sendgrid, Postmart, Outros)
