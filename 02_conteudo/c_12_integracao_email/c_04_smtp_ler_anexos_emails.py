@@ -1,3 +1,4 @@
+#!pip install imap-tools
 from imap_tools import MailBox, AND
 
 usuario = "seuemail@gmail.com"
