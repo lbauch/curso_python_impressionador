@@ -27,6 +27,7 @@ def enviar_email():
     <p>Att., Lira</p>
     <img src='{link_imagem}'>"""
     # Pode ser utilizado para inserir assinatura de email - links de internet
+    # CASO QUEIRA INSERIR O ARQUIVO DO COMPUTADOR: deve ser utilizado o caminho completo do arquivo, SEMPRE
 
     # Necessário encode para utf-8 para garantir formatação
     corpo_email = corpo_email.encode("utf-8")
