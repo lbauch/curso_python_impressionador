@@ -1558,3 +1558,15 @@ def carregar_compras(nome_arquivo):
 # Outlook - conta conectada ao computador - Receber emails
 # Para envio de email em massa, é necessário utilizar os softwares abaixo, para não cair em span ou ser bloqueado automaticamente
 # Serviços Terceirizados e APIS (Twillio/Sendgrid, Postmart, Outros)
+
+
+# Obter caminho da pasta na qual está localizado o arquivo
+
+import os
+caminho = os.getcwd()
+arquivo = 'teste.csv'
+
+# Juntar caminhos 
+caminho_arquivo = caminho + arquivo
+# ou
+caminho_arquivo = caminho + r'\teste.csv'
