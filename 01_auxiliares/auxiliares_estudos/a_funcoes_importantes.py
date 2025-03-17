@@ -1570,3 +1570,34 @@ arquivo = 'teste.csv'
 caminho_arquivo = caminho + arquivo
 # ou
 caminho_arquivo = caminho + r'\teste.csv'
+
+
+
+# ------------- TRABALHANDO E FORMATANDO JSONS E LIB PANDAS
+
+from io import StringIO
+import pandas as pd
+import requests
+
+url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=ITUB4.SAO&apikey={123456}&datatype=csv'
+r = requests.get(url)
+
+# -- io converte um determinado texto em um ARQUIVO temporário
+# -- read_csv(precisa de um arquivo como parâmetro)
+tabela = pd.read_csv(StringIO(r.text))
+
+
+# -- imprimir arquivos em json de forma adequada
+
+import pprint
+
+pprint.pprint(r)
+
+# OU
+
+import requests
+url = f'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=ITUB4.SAO&apikey={"CHAVE123"}'
+r = requests.get(url)
+data = r.json()
+
+formatted_json = json.dumps(r, indent=4, ensure_ascii=False)
