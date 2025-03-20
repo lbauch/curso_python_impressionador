@@ -1,0 +1,15 @@
+A RapidAPI é um hub de apis, que possui uma grande possibilidades de conexões com apis prontas
+
+Possui vários detalhes a respeito destas apis
+
+Exemplo de uso:
+import requests
+
+url = "https://forecast9.p.rapidapi.com/status"
+headers = {
+  "X-RpaidAPI-KEY": "SuaChaveDeApi,
+  "X-RapidAPI-HOST": "forecast0.p.rapidapi.com"
+}
+
+response = requests.get(url, headers=headers)
+print(response.json())
