@@ -8,6 +8,7 @@
 # Dentro da classe, você vai criar a "função" (método) __init__
 # Esse método é quem define o que acontece quando você cria uma instância da Classe
 # Sempre que um objeto for criado, oque está dentro de __init__ será executado.
+# O MÉTODO __init__ É O CONTRUTOR DA CLASSE
 #
 # Vamos ver um exemplo para ficar mais claro, com o caso da Televisão que a gente vinha comentando
 
