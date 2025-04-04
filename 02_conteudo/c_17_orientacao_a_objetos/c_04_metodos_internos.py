@@ -18,6 +18,7 @@ class TV:
 
     # Métodos estáticos NÃO utilizam atributos da classe.
     # Por convenção, utiliza-se o decorator @staticmethod para informar que não usa atributos internos
+    # Atenção ao chamar o método - deve conter o nome da classe antes.
     @staticmethod
     def _hora_agora():
         # timezone.utc - transforma a hora atual para o timezone 0
@@ -49,7 +50,9 @@ class TV:
         self.canais_bloqueados.append(canal)
 
     def programar_ligar(self):
-        agora = self._hora_agora()
+        # AO CHAMAR UM MÉTODO ESTÁTICO:
+        # NomeDaClasse.metod_utilizado()
+        agora = TV._hora_agora()
         if agora.hour == 18 and agora.minutes == 0:
             self.ligada = True
 
