@@ -36,7 +36,7 @@ class TV:
     @staticmethod
     def exibir_hora():
         """
-        Demonstração de método estátoco, apenas imprime a hora atual e pode ser
+        Demonstração de método estático, apenas imprime a hora atual e pode ser
         utilizado fora da classe
 
         Exibe a hora atual do sistema

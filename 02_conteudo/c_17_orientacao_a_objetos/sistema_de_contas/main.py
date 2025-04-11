@@ -1,5 +1,5 @@
 from ContaCorrenteECartao import ContaCorrente, CartaoCredito
-from Agencia import Agencia
+from Agencia import Agencia, AgenciaVirtual
 
 conta_Lira = ContaCorrente("Lira", "111.222.333-45", 1234, 34062)
 cartao_lira = CartaoCredito('Lira', conta_Lira)
@@ -18,3 +18,8 @@ print(agencia1.emprestimos)
 
 agencia1.adicionar_cliente('Lucas', 123456789, 10000)
 print(agencia1.clientes)
+
+# Criando um objeto da subclasse: - Deve receber os parâmetros da classe pai
+agenciaVirtual1 = AgenciaVirtual(987875454, 18002002000173, 1234)
+agenciaVirtual1.caixa = 356879145
+print(agenciaVirtual1.caixa)

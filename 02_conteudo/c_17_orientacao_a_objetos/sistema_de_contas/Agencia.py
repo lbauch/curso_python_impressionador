@@ -1,3 +1,5 @@
+from random import randint
+
 class Agencia:
 
   def __init__(self, telefone, cnpj, numero):
@@ -23,14 +25,30 @@ class Agencia:
   def adicionar_cliente(self, nome, cpf, patrimonio):
     self.clientes.append((nome, cpf, patrimonio))
 
-
+# Deve chamar o __init__ da classe pai, usando super() e passar os atributos no método
 class AgenciaVirtual(Agencia):
-  pass
+  
+  def __init__(self, site, telefone, cpnj):
+    self.site = site
+    super().__init__(telefone, cpnj, 1000)
+    self.caixa = 5500000
+    self.caixa_paypal = 0
 
+  def depositar_paypal(self, valor):
+    self.caixa -= valor
+    self.caixa_paypal += valor
 
+  def sacar_paypal(self, valor):
+    self.caixa_paypal -= valor
+    self.caixa += valor
+
+# A classe AgenciaComumm irá utilizar automaticamente o mesmo __init__ da classe pai
 class AgenciaComumm(Agencia):
   pass
 
-
+# A classe AgenciaPremium irá atribuir automáticamente o nr da agência
 class AgenciaPremium(Agencia):
-  pass
+
+  def __init__(self, telefone, cnpj):
+    super().__init__(telefone, cnpj, numero=randint(1001, 9999))
+    self.caixa = 10000000

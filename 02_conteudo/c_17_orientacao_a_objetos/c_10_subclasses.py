@@ -1,3 +1,4 @@
+from random import randint
 
 # Classe principal
 class Agencia:
@@ -30,18 +31,52 @@ class Agencia:
 
 # CRIANDO AS SUBCLASSES - NECESSÁRIO PASSAR A CLASSE MÃE COMO PARÂMETRO AO CRIAR.
 # PARA INSTANCIAR: passar os parâmetros da classe mãe
+# AO CRIAR UMA SUBCLASSE SEM O MÉTODO __init__, a subclasse importa o método herdado da classe pai
+# Ao criar o __init__, dentro da subclasse, substitui o __init__ da classe pai - desconsiderando o __init__ da herança
+# Para atribuir o __init__ da classe pai, necessário utilizar o super() e definir quais métodos devem ser executados na inicialização
+
+# Cada classe também pode possuir seus métodos próprios
 class AgenciaVirtual(Agencia):
-  pass
+  
+  def __init__(self, site, telefone, cpnj):
+    self.site = site
+    super().__init__(telefone, cpnj, 1000)
+    self.caixa = 1000000
+    self.caixa_paypal = 0
 
+  def depositar_paypal(self, valor):
+    self.caixa -= valor
+    self.caixa_paypal += valor
 
+  def sacar_paypal(self, valor):
+    self.caixa_paypal -= valor
+    self.caixa += valor
+
+# A classe AgenciaComumm irá utilizar automaticamente o mesmo __init__ da classe pai
 class AgenciaComumm(Agencia):
   pass
 
 
+# A classe AgenciaPremium irá atribuir automáticamente o nr da agência
+# O método adicionar_cliente foi sobrescrito dentro da classe, mas aprovitou o método da classe pai
 class AgenciaPremium(Agencia):
-  pass
 
-# Criando um objeto da subclasse: - Deve receber os parâmetros da classe pai
-agenciaVirtual1 = AgenciaVirtual(987875454, 18002002000173, 1234)
-agenciaVirtual1.caixa = 356879145
-print(agenciaVirtual1.caixa)
+  def __init__(self, telefone, cnpj):
+    super().__init__(telefone, cnpj, numero=randint(1001, 9999))
+    self.caixa = 10000000
+
+  def adicionar_cliente(self, nome, cpf, patrimonio):
+    if patrimonio > 350000:
+      super().adicionar_cliente(nome, cpf, patrimonio)
+    else:
+      print('Este cliente não possui patrimônio suficiente')
+
+
+# OBSERVAÇÕES IMPORTANTES:
+# SEMPRE REMOVER QUALQUER EXECUÇÃO DE CÓDIGO APÓS AS CLASSES, AFIM DE NÃO EXECUTAR AÇÕES INDESEJADAS
+# OUTRA SOLUÇÃO É:
+
+# Colocar if __name__ == '__main__' : e então colocar os testes dentro do main.
+
+# Desta forma, o código somente será executado se eu executar a classe.
+# Caso seja um import, não irá executar nos imports
