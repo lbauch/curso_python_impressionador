@@ -30,3 +30,9 @@ class TV:
     def bloquear_canal(self, canal):
         self.canais_bloqueados.append(canal)
 
+Tv1 = TV(55)
+
+# UTILIZA O MÉTODO INTERNO __dict__ PARA MOSTRAR TODOS OS ATRIBUTOS
+print(Tv1.__dict__)
+
+# {'_ligada': False, 'tamanho': 55, '_canal': None, '_volume': 10, '_canais_bloqueados': [], 'descicao': '', '_TV__frequencia_de_funcionamento': '500Hz'}
