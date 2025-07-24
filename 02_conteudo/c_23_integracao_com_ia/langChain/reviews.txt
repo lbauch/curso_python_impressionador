@@ -1,0 +1,4 @@
+{'review_positiva': True, 'vale_pena': True, 'pontos_positivos': ['câmera', 'fotos', 'qualidade'], 'pontos_negativos': ['nenhum']}
+{'review_positiva': True, 'vale_pena': True, 'pontos_positivos': ['top de linha', 'brinde maravilhoso', 'procedência verificada'], 'pontos_negativos': ['nenhum']}
+{'review_positiva': True, 'vale_pena': True, 'pontos_positivos': ['custo benefício', 'conectividade', 'facilidade de aprendizado'], 'pontos_negativos': ['nenhum']}
+{'review_positiva': False, 'vale_pena': False, 'pontos_positivos': ['apresentação'], 'pontos_negativos': ['tamanho']}
