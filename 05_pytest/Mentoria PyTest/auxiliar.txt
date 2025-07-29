@@ -1,0 +1,62 @@
+pip install pytest
+
+# recomenda-se o uso do ambiente virtual
+
+- Para rodar os testes: No terminal, digitar
+pytest
+ao fazer isso, o python identifica quais testes devem ser realizados
+- Exexuta os testes na pasta onde foi chamado o arquivo. 
+
+### Para um teste executar, o arquivo deve começar com test_ ou terminar com _test
+ 
+Ao fazer isso, todos os arquivos que iniciem ou finalizem com este nome são percorridos e executados
+
+Dentro da função de teste de algum arquivo, importar as funções que serão utilizadas.
+
+### As funções de teste também devem iniciar com test_
+Recomendado: após test_, colocar o mesmo nome da função
+
+Significados exibidos pelo pytest:
+E -> exception/error
+F -> fail
+. -> deu tudo certo
+
+Indica as falhas e erros por arquivo e por função
+
+### Igualar valores:
+utilizar o assert
+assert expressao1 comparador expressao2
+Exemplo:
+assert calcular_lucro(1000, 500) > 0
+
+- É possível verificar tipos de variáveis, verificar se uma função não resulta em erro ou outras neste sentido.
+
+### Verificar o tipo de saída de uma função:
+ assert type(calcular_faturamento()) == int
+
+- Ao utilizar pytest -v, exibe de forma mais detalhada
+- Para testar somente um arquivo, não executar todos: pytest meu_arquivo.py
+
+### Criar grupos de validação
+- Exemplo: rodar todos os testes relacionados a usuários
+- Criar o arquivo pytest.ini. As 3 primeiras linhas devem ser padrão.
+- Em markers, colocar todos os marcadores desejados
+- No arquivo de testes, importar o pytest
+- Utilizar decorator @pytest.mark.nome_do_marcador 
+- No terminal, executar: pytest -m nome_do_marcador. Desta forma, roda somente os testes relacionados a um marker.
+O nome do marker deve estar exatamente igual ao do arquivo pytest.ini
+
+
+### IMPORTANTE:
+- Uso de fixtures:
+- Ao realizar uma função que dependa de fatores externos ao programa, torna-se necessário o usi de fixtures
+- defini-se a função com elementos externos desejada com o decorator @pytest.fixture
+- Cria-se a função de teste da função desejada. Para isto, é necessário passá-la como parâmetro, com o mesmo nome da função
+Exemplo:
+
+@pytest.fixture
+def buscar_cotacao_dolar(): # depende de fator externo ao programa
+  pass # fazer a requisição à api
+
+def test_calcular_diferenca_dolar(buscar_cotacao_dolar):
+  assert buscar_cotacao_dolar - 5.54 > 0
